@@ -1,0 +1,43 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+            <f:facet name="first">
+                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+                <title>Cookie Factory</title>
+            </f:facet>
+        </h:head>
+
+        <h:body>
+            <h:form> 
+                <p:dataScroller value="#{dataScrollerView.cars}" var="car" chunkSize="10">
+                    <f:facet name="header">
+                        Unser Cookie Angebot
+                    </f:facet>
+
+                    <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                        <p:graphicImage name="demo/images/car/#{car.brand}-big.gif" /> 
+
+                        <p:outputPanel>
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Id:" />
+                                <h:outputText value="#{cookie.id}" style="font-weight: bold"/>
+
+                                <h:outputText value="Year:" />
+                                <h:outputText value="#{cookie.year}" style="font-weight: bold"/>
+
+                                <h:outputText value="Color:" />
+                                <h:outputText value="#{cookie.color}" style="font-weight: bold"/>
+                            </h:panelGrid>
+                        </p:outputPanel>
+                    </h:panelGrid>
+                </p:dataScroller>
+            </h:form>
+        </h:body>
+    </f:view>
+</html>
