@@ -1,3 +1,4 @@
+package packageForCookieStuff;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -5,16 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author Lukas
- */
 @Entity
 public class Cookie implements Serializable{
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
@@ -22,6 +13,16 @@ public class Cookie implements Serializable{
     private String name;
     private double prize;    
     private int count;
+
+    public Cookie() {
+    }
+
+    public Cookie(int id, String name, double prize, int count) {
+        this.id = id;
+        this.name = name;
+        this.prize = prize;
+        this.count = count;
+    }
 
     // Getter
     public int getId() {

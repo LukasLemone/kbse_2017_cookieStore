@@ -17,9 +17,9 @@
             <h:form>
                 <p:growl id="growl" life="2000" />
                 
-                <p:dataScroller value="#{cookieView.cookie}" var="cookie" chunkSize="10">
+                <p:dataScroller value="#{cookieView.cookies}" var="cookie" chunkSize="10">
                     <f:facet name="header">
-                        Unser Cookie Angebot!
+                        Unser Cookie Angebot
                     </f:facet>
 
                     <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail,button">
