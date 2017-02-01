@@ -3,14 +3,14 @@ package packageForCookieStuff;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.enterprise.context.ApplicationScoped;
-import javax.inject.Named;
+import javax.enterprise.context.Dependent;
+import javax.inject.Inject;
  
-@ApplicationScoped
-@Named("cookieService")
+@Dependent
 public class CookieService implements Serializable {
     /*TODO: Database Connection*/
     
+    @Inject
     private CookiePersistence db;
  
     public List<Cookie> createCookies_Debug() {
@@ -29,15 +29,25 @@ public class CookieService implements Serializable {
         return list;
     }
     
+    //return all cookies as list
     public List<Cookie> cookies() {
         List <Cookie> erg = new ArrayList<>();
+        for(Cookie c:this.db.findAllCookies()) {
+            erg.add(c);
+        }
         return erg;
     }
     
+    //add cookie with parameters
     public void addCookie(String name, double prize, int count) {
-        
+        Cookie c = new Cookie();
+        c.setCount(count);
+        c.setName(name);
+        c.setPrize(prize);
+        this.db.persist(c);
     }
     
+    //delete cookie with id
     public void deleteCookie(int id) {
         
     }
