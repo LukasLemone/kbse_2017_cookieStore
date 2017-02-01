@@ -4,10 +4,10 @@
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>90</x>
-      <y>470</y>
+      <x>0</x>
+      <y>600</y>
       <w>210</w>
-      <h>220</h>
+      <h>280</h>
     </coordinates>
     <panel_attributes>@Entity
 Cookie
@@ -29,12 +29,12 @@ Cookie
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>400</x>
-      <y>340</y>
+      <x>330</x>
+      <y>480</y>
       <w>210</w>
       <h>70</h>
     </coordinates>
-    <panel_attributes>Persistence_Producer
+    <panel_attributes>PersistenceProducer
 --
 +em: EntityManager</panel_attributes>
     <additional_attributes/>
@@ -42,13 +42,13 @@ Cookie
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>80</x>
-      <y>240</y>
+      <x>0</x>
+      <y>410</y>
       <w>210</w>
       <h>140</h>
     </coordinates>
     <panel_attributes>@Stateless
-Persistence
+CookiePersistence
 --
 +em: EntityManager
 --
@@ -61,31 +61,86 @@ Persistence
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>80</x>
-      <y>90</y>
-      <w>210</w>
-      <h>100</h>
+      <x>0</x>
+      <y>200</y>
+      <w>330</w>
+      <h>150</h>
     </coordinates>
     <panel_attributes>@Dependent
-Business_Cookie
+CookieService
 --
 @Dependent
 +db: Persistence
-</panel_attributes>
+--
+-aufgaben():List&lt;Cookie&gt;
+-addCookie(name: String, prize: double, count: int)
+-deleteCookie()</panel_attributes>
     <additional_attributes/>
   </element>
   <element>
     <id>UMLClass</id>
     <coordinates>
-      <x>320</x>
-      <y>130</y>
-      <w>210</w>
-      <h>70</h>
+      <x>0</x>
+      <y>0</y>
+      <w>240</w>
+      <h>140</h>
     </coordinates>
     <panel_attributes>CookieView
 --
-id: Long="36548"
-[waiting for message]</panel_attributes>
++cookies: List&lt;Cookie&gt;
++service: CookieService
+--
+-init()
+-getCookies(): List&lt;Cookie&gt;
+-setServices(service: Cookieservice)</panel_attributes>
     <additional_attributes/>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>90</x>
+      <y>130</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>90</x>
+      <y>340</y>
+      <w>30</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;70.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>90</x>
+      <y>540</y>
+      <w>30</w>
+      <h>80</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>10.0;60.0;10.0;10.0</additional_attributes>
+  </element>
+  <element>
+    <id>Relation</id>
+    <coordinates>
+      <x>200</x>
+      <y>480</y>
+      <w>150</w>
+      <h>40</h>
+    </coordinates>
+    <panel_attributes>lt=&lt;.
+</panel_attributes>
+    <additional_attributes>130.0;20.0;10.0;20.0</additional_attributes>
   </element>
 </diagram>

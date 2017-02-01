@@ -18,7 +18,7 @@ public class CookieView implements Serializable {
      
     @PostConstruct
     public void init() {
-        cookies = service.createCookies();
+        cookies = service.createCookies_Debug();
     }
  
     public List<Cookie> getCookies() {

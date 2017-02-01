@@ -10,7 +10,7 @@ import javax.inject.Named;
 public class CookieService {
     /*TODO: Database Connection*/ 
  
-    public List<Cookie> createCookies() {
+    public List<Cookie> createCookies_Debug() {
         List<Cookie> list = new ArrayList<>();
         
         Cookie newCookieBlue = new Cookie(1, "Blue", 2.49, 50);
