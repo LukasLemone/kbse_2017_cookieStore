@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="14.2">
+  <zoom_level>10</zoom_level>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>90</x>
+      <y>470</y>
+      <w>210</w>
+      <h>220</h>
+    </coordinates>
+    <panel_attributes>@Entity
+Cookie
+--
++id: int
++name: String
++prize: double
++count: int
+--
+-getId(): id
+-getName(): String
+-getPrize(): double
+-getCount():int
+-setName(name:String)
+-setPrize(prize: double)
+-setCount(count: int)</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>400</x>
+      <y>340</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>Persistence_Producer
+--
++em: EntityManager</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>240</y>
+      <w>210</w>
+      <h>140</h>
+    </coordinates>
+    <panel_attributes>@Stateless
+Persistence
+--
++em: EntityManager
+--
+-persist(object: Object)
+-merge(object: Object): Object
+-findAllCookies():List&lt;Cookie&gt;
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>80</x>
+      <y>90</y>
+      <w>210</w>
+      <h>100</h>
+    </coordinates>
+    <panel_attributes>@Dependent
+Business_Cookie
+--
+@Dependent
++db: Persistence
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <id>UMLClass</id>
+    <coordinates>
+      <x>320</x>
+      <y>130</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>CookieView
+--
+id: Long="36548"
+[waiting for message]</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

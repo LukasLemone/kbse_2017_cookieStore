@@ -9,7 +9,7 @@ import javax.faces.view.ViewScoped;
  
 @ViewScoped
 @Named
-public class cookieView implements Serializable {
+public class CookieView implements Serializable {
      
     private List<Cookie> cookies;
          
