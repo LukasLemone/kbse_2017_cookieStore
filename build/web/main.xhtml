@@ -7,40 +7,58 @@
 
     <f:view contentType="text/html">
         <h:head>
-            <f:facet name="first">
-                <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
-                <title>Cookie Factory</title>
-            </f:facet>
+            <title>Cookie Factory</title>
         </h:head>
 
-        <h:body>
-            <h:form>
-                <p:growl id="growl" life="2000" />
+        <h:body>            
+            <h:form>         
+                <p:tabMenu activeIndex="1">
+                    <p:menuitem value="Start" outcome="index">
+                        <f:param name="i" value="0" />
+                    </p:menuitem>
+                    <p:menuitem value="Angebot" outcome="main">
+                        <f:param name="i" value="1" />
+                    </p:menuitem>
+                    <p:menuitem value="Bestellung" outcome="final">
+                        <f:param name="i" value="2" />
+                    </p:menuitem>
+                </p:tabMenu>
                 
-                <p:dataScroller value="#{cookieView.cookies}" var="cookie" chunkSize="10">
-                    <f:facet name="header">
-                        Unser Cookie Angebot
-                    </f:facet>
+                <div id="datapanel" style="width: 70%">
+                    <p:dataScroller value="" var="cookie" chunkSize="10">
+                        <f:facet name="header">
+                            Unser Cookie Angebot
+                        </f:facet>
 
-                    <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail,button">
-                        <p:graphicImage name="resources/cookie_types/normal.png" />
+                        <h:panelGrid style="width: 100%" columns="3" columnClasses="image,detail,button">
+                            <h:graphicImage value="resources/cookie_types/normal.png" />
+                            
+                            <p:outputPanel>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Typ:" />
+                                    <h:outputText value="Normal" style="font-weight: bold" />
 
-                        <p:outputPanel>
-                            <h:panelGrid columns="2" cellpadding="5">
-                                <h:outputText value="Id:" />
-                                <h:outputText value="1" style="font-weight: bold"/>
+                                    <h:outputText value="Preis:" />
+                                    <h:outputText value="1,99€" style="font-weight: bold" />                               
 
-                                <h:outputText value="Typ:" />
-                                <h:outputText value="Normal" style="font-weight: bold"/>
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="1" style="font-weight: bold" />
+                                </h:panelGrid>
+                            </p:outputPanel>
 
-                                <h:outputText value="Preis:" />
-                                <h:outputText value="1,99€" style="font-weight: bold"/>
-                                
-                                <p:commandButton value="hinzufügen" id="hinzu" update="growl" actionListener="#{cookieView.addButton}" styleClass="ui-priority-primary" />
-                            </h:panelGrid>
-                        </p:outputPanel>
-                    </h:panelGrid>
-                </p:dataScroller>
+                            <p:commandButton value="Hinzufügen" actionListener="#{cookieView.buttonAction}" styleClass="ui-priority-primary" />
+                        </h:panelGrid>
+                    </p:dataScroller>
+                </div>
+                
+                <div id="textpanel" style="width: 30%">
+                    <p:panel header="Info">
+                        <h:panelGrid columns="2" cellpadding="10">
+                            <h:outputText
+                                value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
+                        </h:panelGrid>
+                    </p:panel>
+                </div>
             </h:form>
         </h:body>
     </f:view>
