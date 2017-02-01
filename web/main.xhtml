@@ -15,13 +15,13 @@
 
         <h:body>
             <h:form> 
-                <p:dataScroller value="#{dataScrollerView.cars}" var="car" chunkSize="10">
+                <p:dataScroller value="#{cookieView.cookie}" var="cookie" chunkSize="10">
                     <f:facet name="header">
                         Unser Cookie Angebot
                     </f:facet>
 
                     <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
-                        <p:graphicImage name="demo/images/car/#{car.brand}-big.gif" /> 
+                        <p:graphicImage name="resources/cookie_types/#{cookie.type}.gif" /> 
 
                         <p:outputPanel>
                             <h:panelGrid columns="2" cellpadding="5">
@@ -29,10 +29,10 @@
                                 <h:outputText value="#{cookie.id}" style="font-weight: bold"/>
 
                                 <h:outputText value="Year:" />
-                                <h:outputText value="#{cookie.year}" style="font-weight: bold"/>
+                                <h:outputText value="#{cookie.type}" style="font-weight: bold"/>
 
                                 <h:outputText value="Color:" />
-                                <h:outputText value="#{cookie.color}" style="font-weight: bold"/>
+                                <h:outputText value="#{cookie.prize}" style="font-weight: bold"/>
                             </h:panelGrid>
                         </p:outputPanel>
                     </h:panelGrid>
