@@ -1,4 +1,4 @@
-package packageForCookieStuff;
+package package_Cookie;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
