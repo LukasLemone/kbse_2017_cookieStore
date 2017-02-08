@@ -11,7 +11,10 @@
         </h:head>
 
         <h:body>            
-            <h:form>         
+            <h:form>     
+                
+                <p:growl id="growl" life="2000" />
+                
                 <p:tabMenu activeIndex="1">
                     <p:menuitem value="Start" outcome="index">
                         <f:param name="i" value="0" />
@@ -24,41 +27,67 @@
                     </p:menuitem>
                 </p:tabMenu>
                 
-                <div id="datapanel" style="width: 70%">
-                    <p:dataScroller value="" var="cookie" chunkSize="10">
+                <p:panel style="width:70%; float:left">
+                    <p:dataScroller value="#{cookieView.cookies}" var="cookie" chunkSize="10">
                         <f:facet name="header">
                             Unser Cookie Angebot
                         </f:facet>
 
-                        <h:panelGrid style="width: 100%" columns="3" columnClasses="image,detail,button">
-                            <h:graphicImage value="resources/cookie_types/normal.png" />
-                            
+                        <h:panelGrid columns="3" columnClasses="image,detail,button">
+                            <p:graphicImage name="resources/cookie_types/#{cookie.name}.png" /> 
+
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
-                                    <h:outputText value="Typ:" />
-                                    <h:outputText value="Normal" style="font-weight: bold" />
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{cookie.id}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Name:" />
+                                    <h:outputText value="#{cookie.name}" style="font-weight: bold"/>
 
                                     <h:outputText value="Preis:" />
-                                    <h:outputText value="1,99€" style="font-weight: bold" />                               
-
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="1" style="font-weight: bold" />
+                                    <h:outputText value="#{cookie.price}" style="font-weight: bold"/>
                                 </h:panelGrid>
                             </p:outputPanel>
-
-                            <p:commandButton value="Hinzufügen" actionListener="#{cookieView.buttonAction}" styleClass="ui-priority-primary" />
                         </h:panelGrid>
                     </p:dataScroller>
-                </div>
-                
-                <div id="textpanel" style="width: 30%">
-                    <p:panel header="Info">
-                        <h:panelGrid columns="2" cellpadding="10">
-                            <h:outputText
-                                value="Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet." />
-                        </h:panelGrid>
-                    </p:panel>
-                </div>
+                </p:panel>
+
+                <p:panel style="width:28%; float:right">
+                    <f:facet name="header">
+                        Info
+                    </f:facet>
+                    
+                    <h:outputText value="Wilkommen im Luto Cookiestore! In diesem Bereich können Sie 
+                                  Cookies bestellen, hinzufügen oder löschen. Um Cookies zu bestellen
+                                  treffen Sie links einfach eine Auswahl und klicken Sie auf Bestellen.
+                                  Um Cookies hinzuzufügen, geben Sie unten die Details ein und drücken Sie hinzufügen.
+                                  Cookies werden gelöscht indem Sie die Id eingeben und löschen betätigen." />
+
+                    <p:separator /> 
+                    
+                    <h:panelGrid columns="2">                 
+                        <h:outputLabel for="name" value="Name: " />
+                        <p:inputText id="name" value="#{cookieView.toAddName}" label="Name" required="true" />
+                 
+                        <h:outputLabel for="price" value="Preis: " />
+                        <p:inputText id="price" value="#{cookieView.toAddPrice}" label="Preis" required="true" />
+              
+                        <h:outputLabel for="count" value="Anzahl: " />
+                        <p:inputText id="count" value="#{cookieView.toAddCount}" label="Anzahl" required="true" />
+                    </h:panelGrid>
+                    <br />
+                    <p:commandButton value="Hinzufügen" id="ajax1" update="growl" actionListener="#{cookieView.addCookieButton}" styleClass="ui-priority-primary" />
+                    
+                    <p:separator />  
+                    
+                    <h:panelGrid columns="2">
+                        <h:outputLabel for="delete" value="Id: " />
+                        <p:inputText id="delete" value="#{cookieView.idToDelete}" label="Zu löschen" required="true" />
+                    </h:panelGrid>
+                    <br />
+                    <p:commandButton value="Löschen" id="ajax2" update="growl" actionListener="#{cookieView.deleteCookieButton}" styleClass="ui-priority-primary" />
+                </p:panel>
+                    
             </h:form>
         </h:body>
     </f:view>
