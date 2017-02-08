@@ -17,7 +17,7 @@ import javax.persistence.NamedQuery;
     @NamedQuery(name = "Beitrag.remove",
             query = "DELETE FROM Cookie o WHERE o.id = :id")
 })
-public class Cookie implements Serializable{
+public class Cookie {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private String name;

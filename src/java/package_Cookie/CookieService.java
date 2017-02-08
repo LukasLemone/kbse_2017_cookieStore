@@ -27,7 +27,7 @@ public class CookieService implements Serializable{
         c.setCount(count);
         c.setName(name);
         c.setPrice(price);
-        this.db.persist(c);
+        this.db.addCookie(c);
     }
     
     //delete cookie with id
