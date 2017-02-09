@@ -29,25 +29,24 @@
                 </p:tabMenu>
                 
                 <p:panel style="width:70%; float:left">
-                    <p:dataScroller value="#{CookieView.cookies()}" var="item" chunkSize="10">
+                    <p:dataScroller value="#{CookieView.cookies}" var="cookie" chunkSize="10">
                         <f:facet name="header">
                             Unser Cookie Angebot
                         </f:facet>
 
-                        <h:panelGrid columns="3" columnClasses="image,detail,button">
-                            <!--<p:graphicImage name="resources/cookie_types/#{cookie.name}.png" />--> 
+                        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif" />-->
 
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Id:" />
-                                    <h:outputText value="#{item.id}" style="font-weight: bold">
-                                    </h:outputText>
+                                    <h:outputText value="#{cookie.id}" style="font-weight: bold"/>
 
                                     <h:outputText value="Name:" />
-                                    <h:outputText value="#{item.name}" style="font-weight: bold"/>
+                                    <h:outputText value="#{cookie.name}" style="font-weight: bold"/>
 
-                                    <h:outputText value="Preis:" />
-                                    <h:outputText value="#{item.price}" style="font-weight: bold"/>
+                                    <h:outputText value="Count:" />
+                                    <h:outputText value="#{cookie.count}" style="font-weight: bold"/>
                                 </h:panelGrid>
                             </p:outputPanel>
                         </h:panelGrid>
