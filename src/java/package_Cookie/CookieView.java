@@ -4,35 +4,39 @@ import java.awt.event.ActionEvent;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import javax.annotation.ManagedBean;
-import javax.faces.application.FacesMessage;
+import javax.annotation.PostConstruct;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
+
  
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
 
-//@Named
-//@ViewScoped
-@ManagedBean
-//@ViewScoped
-public class CookieView /*implements Serializable*/ {
+
+
+@Named("CookieView")
+@SessionScoped
+public class CookieView implements Serializable {
     
-    @ManagedProperty("#{cookieService}")
-    private CookieService service;
+    @Inject
+    private CookieService cs;
     
-    private List<Cookie> cookies;
+    
     private String toAddName;
     private double toAddPrice;
     private int toAddCount;
+    private Long idToDelete;
+
     
-    public void addCookieButton(ActionEvent actionEvent) {
+    public void addCookieButton() {
+        System.out.println("addCookieButton");
         addMessage("Cookie hinzugefügt");
+        cs.addCookie(toAddName, toAddPrice, toAddCount);
     }
     
-    public void deleteCookieButton(ActionEvent actionEvent) {
+    public void deleteCookieButton() {
+        System.out.println("deleteCookieButton");
         addMessage("Cookie gelöscht");
     }
 
@@ -41,26 +45,48 @@ public class CookieView /*implements Serializable*/ {
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
- /*         
-    public CookieView() {
-        this.cookies = new ArrayList<>();
-        
-        Cookie newCookieBlue = new Cookie(1, "blue", 2.49, 50);
-        Cookie newCookieGreen = new Cookie(2, "green", 2.49, 50);
-        Cookie newCookieMM = new Cookie(3, "mm", 3.49, 50);
-        Cookie newCookieNormal = new Cookie(4, "normal", 1.99, 50);
-        
-        this.cookies.add(newCookieBlue);
-        this.cookies.add(newCookieGreen);
-        this.cookies.add(newCookieMM);
-        this.cookies.add(newCookieNormal);
+    public List<Cookie> cookies() {
+        return cs.cookies();
     }
-  */  
-    //public List<Cookie> getCookies() {
-    //    return cookies;
-    //}
     
-    //public void setService(CookieService service) {
-    //    this.service = service;
-    //}
+    @PostConstruct
+    public void init() {
+        cs.addCookie("Zimtstern", 10.8, 30);
+        cs.addCookie("Brownies", 21.3, 3);
+        cs.addCookie("Makronen", 2.3, 22);
+    }
+    
+    
+    //Getter and Setter (required for JSF to resolve class variables)
+     public String getToAddName() {
+        return toAddName;
+    }
+
+    public double getToAddPrice() {
+        return toAddPrice;
+    }
+
+    public int getToAddCount() {
+        return toAddCount;
+    }
+
+    public Long getIdToDelete() {
+        return idToDelete;
+    }
+
+    public void setToAddName(String toAddName) {
+        this.toAddName = toAddName;
+    }
+
+    public void setToAddPrice(double toAddPrice) {
+        this.toAddPrice = toAddPrice;
+    }
+
+    public void setToAddCount(int toAddCount) {
+        this.toAddCount = toAddCount;
+    }
+
+    public void setIdToDelete(Long idToDelete) {
+        this.idToDelete = idToDelete;
+    }
 }

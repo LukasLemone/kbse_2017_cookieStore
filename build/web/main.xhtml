@@ -7,6 +7,7 @@
 
     <f:view contentType="text/html">
         <h:head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
             <title>Cookie Factory</title>
         </h:head>
 
@@ -28,7 +29,7 @@
                 </p:tabMenu>
                 
                 <p:panel style="width:70%; float:left">
-                    <p:dataScroller value="#{cookieView.cookies}" var="cookie" chunkSize="10">
+                    <p:dataScroller value="#{CookieView.cookies()}" var="cookie" chunkSize="10">
                         <f:facet name="header">
                             Unser Cookie Angebot
                         </f:facet>
@@ -67,25 +68,25 @@
                     
                     <h:panelGrid columns="2">                 
                         <h:outputLabel for="name" value="Name: " />
-                        <p:inputText id="name" value="#{cookieView.toAddName}" label="Name" required="true" />
+                        <p:inputText id="name" value="#{CookieView.toAddName}" label="Name" required="true" />
                  
                         <h:outputLabel for="price" value="Preis: " />
-                        <p:inputText id="price" value="#{cookieView.toAddPrice}" label="Preis" required="true" />
+                        <p:inputText id="price" value="#{CookieView.toAddPrice}" label="Preis" required="true" />
               
                         <h:outputLabel for="count" value="Anzahl: " />
-                        <p:inputText id="count" value="#{cookieView.toAddCount}" label="Anzahl" required="true" />
+                        <p:inputText id="count" value="#{CookieView.toAddCount}" label="Anzahl" required="true" />
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Hinzufügen" id="ajax1" update="growl" actionListener="#{cookieView.addCookieButton}" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Hinzufügen" id="ajax1" update="growl" action="#{CookieView.addCookieButton}" styleClass="ui-priority-primary" />
                     
                     <p:separator />  
                     
                     <h:panelGrid columns="2">
                         <h:outputLabel for="delete" value="Id: " />
-                        <p:inputText id="delete" value="#{cookieView.idToDelete}" label="Zu löschen" required="true" />
+                        <p:inputText id="delete" value="#{CookieView.idToDelete}" label="Zu löschen" required="true" />
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Löschen" id="ajax2" update="growl" actionListener="#{cookieView.deleteCookieButton}" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Löschen" id="ajax2" update="growl" action="#{CookieView.deleteCookieButton}" styleClass="ui-priority-primary" />
                 </p:panel>
                     
             </h:form>

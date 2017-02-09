@@ -31,8 +31,9 @@ public class CookieService implements Serializable{
     }
     
     //delete cookie with id
-    public void deleteCookie(int id) {
+    public void deleteCookie(Long id) {
         
     }
+    
      
 }
