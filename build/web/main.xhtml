@@ -8,7 +8,7 @@
     <f:view contentType="text/html">
         <h:head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title>Cookie Factory</title>
+            <title>Luto Cookiestore</title>
         </h:head>
 
         <h:body>            
@@ -29,13 +29,13 @@
                 </p:tabMenu>
                 
                 <p:panel style="width:70%; float:left">
-                    <p:dataScroller value="#{CookieView.cookies()}" var="cookie" chunkSize="10">
+                    <p:dataScroller value="#{CookieView.cookies}" var="cookie" chunkSize="10">
                         <f:facet name="header">
                             Unser Cookie Angebot
                         </f:facet>
 
-                        <h:panelGrid columns="3" columnClasses="image,detail,button">
-                            <p:graphicImage name="resources/cookie_types/#{cookie.name}.png" /> 
+                        <h:panelGrid columns="2" style="width:100%" columnClasses="logo,detail">
+                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif" />-->
 
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
@@ -45,8 +45,8 @@
                                     <h:outputText value="Name:" />
                                     <h:outputText value="#{cookie.name}" style="font-weight: bold"/>
 
-                                    <h:outputText value="Preis:" />
-                                    <h:outputText value="#{cookie.price}" style="font-weight: bold"/>
+                                    <h:outputText value="Count:" />
+                                    <h:outputText value="#{cookie.count}" style="font-weight: bold"/>
                                 </h:panelGrid>
                             </p:outputPanel>
                         </h:panelGrid>
@@ -66,7 +66,7 @@
 
                     <p:separator /> 
                     
-                    <h:panelGrid columns="2">                 
+                    <h:panelGrid columns="2" id="toAddInput">                 
                         <h:outputLabel for="name" value="Name: " />
                         <p:inputText id="name" value="#{CookieView.toAddName}" label="Name" required="true" />
                  
@@ -77,16 +77,16 @@
                         <p:inputText id="count" value="#{CookieView.toAddCount}" label="Anzahl" required="true" />
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Hinzufügen" id="ajax1" update="growl" action="#{CookieView.addCookieButton}" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Hinzufügen" id="ajax1" process="toAddInput" update="growl" action="#{CookieView.addCookieButton()}" styleClass="ui-priority-primary" />
                     
                     <p:separator />  
                     
-                    <h:panelGrid columns="2">
+                    <h:panelGrid columns="2" id="toDeleteInput">
                         <h:outputLabel for="delete" value="Id: " />
                         <p:inputText id="delete" value="#{CookieView.idToDelete}" label="Zu löschen" required="true" />
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Löschen" id="ajax2" update="growl" action="#{CookieView.deleteCookieButton}" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Löschen" id="ajax2" process="toDeleteInput" update="growl" action="#{CookieView.deleteCookieButton()}" styleClass="ui-priority-primary" />
                 </p:panel>
                     
             </h:form>

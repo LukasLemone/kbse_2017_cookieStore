@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Studium/Semester_5/KBSE/CookieMonster/kbse_2017_cookieStore/web/WEB-INF/glassfish-resources.xml</file>
-            <file>file:/D:/Studium/Semester_5/KBSE/CookieMonster/kbse_2017_cookieStore/src/conf/persistence.xml</file>
-            <file>file:/D:/Studium/Semester_5/KBSE/CookieMonster/kbse_2017_cookieStore/web/WEB-INF/beans.xml</file>
-            <file>file:/D:/Studium/Semester_5/KBSE/CookieMonster/kbse_2017_cookieStore/web/WEB-INF/web.xml</file>
+            <file>file:/C:/Users/Lukas/Desktop/kbse_2017_cookieStore/src/java/package_Cookie/CookieView.java</file>
+            <file>file:/C:/Users/Lukas/Desktop/kbse_2017_cookieStore/src/java/package_Cookie/CookieService.java</file>
+            <file>file:/C:/Users/Lukas/Desktop/kbse_2017_cookieStore/src/java/package_Cookie/CookiePersistence.java</file>
         </group>
     </open-files>
 </project-private>

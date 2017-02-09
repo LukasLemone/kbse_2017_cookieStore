@@ -1,6 +1,5 @@
 package package_Cookie;
 
-import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -11,7 +10,6 @@ public class CookiePersistence {
     
     @Inject
     private EntityManager em;
-    
     
     //basic persistence-stuff
     public void persist(Object object) {
@@ -41,6 +39,7 @@ public class CookiePersistence {
     }
     
     public List<Cookie> findAllCookies() {
+        //muss das alles so? findAllCookies wird drei mal aufgerufen
         System.out.println("-findAllCookies");
         return em.createNamedQuery("Cookie.findAll", Cookie.class).getResultList();
     }
@@ -56,7 +55,5 @@ public class CookiePersistence {
         } catch(Exception e) {
             System.out.println("Persisistierfehler");
         }
-    }
-    
-    
+    }   
 }

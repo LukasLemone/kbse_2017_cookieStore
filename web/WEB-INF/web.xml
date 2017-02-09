@@ -14,7 +14,8 @@
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>    
     <servlet>
         <servlet-name>Resource Servlet</servlet-name>
         <servlet-class>
@@ -29,7 +30,6 @@
         <param-name>com.sun.faces.allowTextChildren</param-name>
         <param-value>true</param-value>
     </context-param>
-            
     <session-config>
         <session-timeout>
             30
@@ -38,9 +38,4 @@
     <welcome-file-list>
         <welcome-file>faces/index.xhtml</welcome-file>
     </welcome-file-list>
-    <!--<ejb-local-ref>
-        <ejb-ref-name>persistenceService</ejb-ref-name>
-        <ejb-ref-type>Session</ejb-ref-type>
-        <ejb-link>#persistenceService</ejb-link>
-    </ejb-local-ref>-->
 </web-app>
