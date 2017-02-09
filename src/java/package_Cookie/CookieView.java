@@ -27,7 +27,6 @@ public class CookieView implements Serializable {
     private double toAddPrice;
     private int toAddCount;
     private Long idToDelete;
-
     
     public void addCookieButton() {
         System.out.println("addCookieButton");
@@ -46,6 +45,7 @@ public class CookieView implements Serializable {
     }
     
     public List<Cookie> cookies() {
+        
         return cs.cookies();
     }
     
@@ -54,6 +54,7 @@ public class CookieView implements Serializable {
         cs.addCookie("Zimtstern", 10.8, 30);
         cs.addCookie("Brownies", 21.3, 3);
         cs.addCookie("Makronen", 2.3, 22);
+        
     }
     
     
@@ -73,6 +74,7 @@ public class CookieView implements Serializable {
     public Long getIdToDelete() {
         return idToDelete;
     }
+    
 
     public void setToAddName(String toAddName) {
         this.toAddName = toAddName;
@@ -89,4 +91,5 @@ public class CookieView implements Serializable {
     public void setIdToDelete(Long idToDelete) {
         this.idToDelete = idToDelete;
     }
+
 }

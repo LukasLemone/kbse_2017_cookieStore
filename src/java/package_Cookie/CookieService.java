@@ -14,8 +14,8 @@ public class CookieService implements Serializable{
     
     //return all cookies as list
     public List<Cookie> cookies() {
-        List <Cookie> erg = new ArrayList<>();
-        for(Cookie c:this.db.findAllCookies()) {
+        List <Cookie> erg = new ArrayList<Cookie>();
+        for(Cookie c : this.db.findAllCookies()) {
             erg.add(c);
         }
         return erg;
