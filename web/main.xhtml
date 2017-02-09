@@ -8,7 +8,7 @@
     <f:view contentType="text/html">
         <h:head>
             <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-            <title>Cookie Factory</title>
+            <title>Luto Cookiestore</title>
         </h:head>
 
         <h:body>            
@@ -63,7 +63,7 @@
                                   Cookies bestellen, hinzufügen oder löschen. Um Cookies zu bestellen
                                   treffen Sie links einfach eine Auswahl und klicken Sie auf Bestellen.
                                   Um Cookies hinzuzufügen, geben Sie unten die Details ein und drücken Sie hinzufügen.
-                                  Cookies werden gelöscht indem Sie die Id eingeben und löschen betätigen."/>
+                                  Cookies werden gelöscht indem Sie die Id eingeben und löschen betätigen." />
 
                     <p:separator /> 
                     
@@ -78,7 +78,7 @@
                         <p:inputText id="count" value="#{CookieView.toAddCount}" label="Anzahl" required="true" />
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Hinzufügen" id="ajax1" process="toAddInput" update="growl" action="#{CookieView.addCookieButton}" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Hinzufügen" id="ajax1" process="toAddInput" update="growl" action="#{CookieView.addCookieButton()}" styleClass="ui-priority-primary" />
                     
                     <p:separator />  
                     
@@ -87,7 +87,7 @@
                         <p:inputText id="delete" value="#{CookieView.idToDelete}" label="Zu löschen" required="true" />
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Löschen" id="ajax2" process="toDeleteInput" update="growl" action="#{CookieView.deleteCookieButton}" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Löschen" id="ajax2" process="toDeleteInput" update="growl" action="#{CookieView.deleteCookieButton()}" styleClass="ui-priority-primary" />
                 </p:panel>
                     
             </h:form>
