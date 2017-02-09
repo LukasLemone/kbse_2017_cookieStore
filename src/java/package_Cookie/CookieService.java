@@ -7,14 +7,14 @@ import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
 @Dependent
-public class CookieService implements Serializable{
+public class CookieService implements Serializable {
     
     @Inject
     private CookiePersistence db;
     
     //return all cookies as list
     public List<Cookie> cookies() {
-        List <Cookie> erg = new ArrayList<Cookie>();
+        List <Cookie> erg = new ArrayList<>();
         for(Cookie c : this.db.findAllCookies()) {
             erg.add(c);
         }
@@ -33,7 +33,5 @@ public class CookieService implements Serializable{
     //delete cookie with id
     public void deleteCookie(Long id) {
         
-    }
-    
-     
+    }    
 }

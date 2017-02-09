@@ -1,0 +1,10 @@
+diff a/web/index.xhtml b/web/index.xhtml	(rejected hunks)
+@@ -7,7 +7,7 @@
+ 
+     <f:view contentType="text/html">
+         <h:head>
+-            <title>Cookie Factory</title>
++            <title>Luto Cookiestore</title>
+         </h:head>
+ 
+         <h:body>
