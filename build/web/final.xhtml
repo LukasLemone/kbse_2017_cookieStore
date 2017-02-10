@@ -11,7 +11,10 @@
         </h:head>
         
         <h:body>
-            <h:form>   
+            <h:form>  
+                
+                <p:growl id="growl" life="2000" />
+                
                 <p:tabMenu activeIndex="2">
                     <p:menuitem value="Start" outcome="index">
                         <f:param name="i" value="0" />
@@ -23,6 +26,36 @@
                         <f:param name="i" value="2" />
                     </p:menuitem>
                 </p:tabMenu>
+                
+                <p:panel style="width:70%; float:left">
+                    <p:dataScroller value="#{CookieView.cookies()}" var="item" chunkSize="10">
+                        <f:facet name="header">
+                            Unser Cookie Angebot
+                        </f:facet>
+
+                        <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail,button">
+                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif" />-->
+
+                            <p:outputPanel>
+                                <h:panelGrid columns="2" cellpadding="5">
+                                    <h:outputText value="Id:" />
+                                    <h:outputText value="#{item.id}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Name:" />
+                                    <h:outputText value="#{item.name}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Count:" />
+                                    <h:outputText value="#{item.count}" style="font-weight: bold"/>                                         
+                                </h:panelGrid>                                
+                            </p:outputPanel>
+                           
+                            <p:panel style="float:right">
+                                <p:commandButton value="Bestellen" id="orderButton" action="#{CookieView.orderCookieButton()}" styleClass="ui-priority-primary" />
+                            </p:panel>
+                        </h:panelGrid>
+                    </p:dataScroller>
+                </p:panel>
+                
             </h:form>
         </h:body>
     </f:view>
