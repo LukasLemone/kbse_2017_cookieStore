@@ -24,7 +24,7 @@ public class CookieView implements Serializable {
     private String toAddName;
     private double toAddPrice;
     private int toAddCount;
-    private Long idToDelete;
+    private int idToDelete;
 
     //Buttons in main.xhtml, growl message, get cookie list
     public void orderCookieButton() {
@@ -74,7 +74,7 @@ public class CookieView implements Serializable {
         return toAddCount;
     }
 
-    public Long getIdToDelete() {
+    public int getIdToDelete() {
         return idToDelete;
     }
 
@@ -94,7 +94,7 @@ public class CookieView implements Serializable {
         this.toAddCount = toAddCount;
     }
 
-    public void setIdToDelete(Long idToDelete) {
+    public void setIdToDelete(int idToDelete) {
         this.idToDelete = idToDelete;
     }
 }
