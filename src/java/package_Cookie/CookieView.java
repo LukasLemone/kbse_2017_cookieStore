@@ -6,10 +6,10 @@ import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ViewScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
 
-@ViewScoped
+@SessionScoped
 @Named(value = "CookieView")
 public class CookieView implements Serializable {
     
@@ -50,6 +50,11 @@ public class CookieView implements Serializable {
     
     public List<Cookie> cookies() {
         return cs.cookies();
+    }
+    
+    public List<Cookie> orderedCookies() {
+        //TODO get ordered Cookies
+        return null;
     }
     
     //Getter and Setter (required for JSF to resolve class variables)
