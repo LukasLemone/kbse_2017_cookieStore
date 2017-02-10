@@ -35,7 +35,20 @@ public class CookieService implements Serializable {
         this.db.removeCookie(id);
     } 
     
-    //
+    //check for cookie with id
+    public boolean isThereCookie(int id){
+        if(this.db.findCookie(id) != null){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    
+    public Cookie findCookie(int id){
+        return this.db.findCookie(id);
+    }
+    
+    //delete all cookies
     public void deleteAllCookies() {
         for(Cookie c : this.db.findAllCookies()) {
             this.db.removeCookie(c.getId());

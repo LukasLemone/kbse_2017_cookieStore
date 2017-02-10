@@ -4,6 +4,7 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -19,35 +20,56 @@ public class CookieView implements Serializable {
     private int idToDelete;
     private int orderCount;
     
+    private List<Cookie> order;
+    
     @Inject
     private CookieService cs;
 
     @PostConstruct
-    public void init() {        
+    public void init() {
+        this.order = new ArrayList<>();
         cs.deleteAllCookies();
         
-        cs.addCookie("Zimtstern", 1.99, 64);
-        cs.addCookie("Brownie", 2.49, 64);
-        cs.addCookie("Makrone", 2.99, 64);
-        cs.addCookie("Butterkeks", 1.49, 64);
-        cs.addCookie("Cookie", 0.99, 64);
+        cs.addCookie("Schoko", 1.99, 64);
+        cs.addCookie("Halbkorn", 2.49, 64);
+        cs.addCookie("Osmania", 2.99, 64);
+        cs.addCookie("Schokomilch", 1.49, 64);
+        cs.addCookie("Vollkorn", 0.99, 64);
     }
 
     //Buttons in main.xhtml
     public void orderCookieButton(int toOrderId) {
-        //TODO add ordered List and add Cookie
+        if(cs.findCookie(toOrderId).getCount() < orderCount){
+            addMessage("Vorrat reicht nicht aus");
+        }else{
+            String nName = cs.findCookie(toOrderId).getName();
+            double nPrice = cs.findCookie(toOrderId).getPrice();
+            int nCount = orderCount;
+            
+            Cookie toOrder = new Cookie(nName, nPrice, nCount);
+            this.order.add(toOrder);
+            
+            cs.findCookie(toOrderId).setCount(cs.findCookie(toOrderId).getCount() - orderCount);
+            addMessage("Zur Bestellung hinzugefügt");
+        }  
     }
     
     public void addCookieButton() {
-        System.out.println("addCookieButton");
-        addMessage("Cookie hinzugefügt");
-        cs.addCookie(toAddName, toAddPrice, toAddCount);
+        if(!toAddName.equals(null) && toAddPrice != 0 && toAddCount != 0){
+            cs.addCookie(toAddName, toAddPrice, toAddCount);
+            addMessage("Cookie hinzugefügt");
+        }else{
+            addMessage("Angaben unvollständig");
+        }
     }
     
     public void deleteCookieButton() {
-        System.out.println("deleteCookieButton");
-        addMessage("Cookie gelöscht");
-        cs.deleteCookie(idToDelete);
+        if(cs.isThereCookie(idToDelete)){
+            cs.deleteCookie(idToDelete);            
+            addMessage("Cookie gelöscht");
+        }else{
+            addMessage("Cookie nicht gefunden");
+        }
     }
     
     //Buttons in final.xhtml
@@ -61,8 +83,7 @@ public class CookieView implements Serializable {
     }
     
     public List<Cookie> orderedCookies() {
-        //TODO return ordered Cookies
-        return null;
+        return this.order;
     }
     
     public void addMessage(String summary) {
@@ -71,6 +92,10 @@ public class CookieView implements Serializable {
     }
     
     //Getter and Setter
+    public List<Cookie> getOrder() {
+        return order;
+    } 
+
     public int getOrderCount() {
         return orderCount;
     } 
@@ -93,6 +118,10 @@ public class CookieView implements Serializable {
 
     public int getIdToDelete() {
         return idToDelete;
+    }
+
+    public void setOrder(List<Cookie> order) {
+        this.order = order;
     }
 
     public void setOrderCount(int orderCount) {
