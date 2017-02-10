@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @NamedQueries({
@@ -20,8 +23,16 @@ import javax.persistence.NamedQuery;
 public class Cookie implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
+    
+    @NotNull(message="Keks braucht einen Namen")
     private String name;
-    private double price;    
+    
+    @Min(value= 0, message="kein Preis angegeben")
+    @Max(value= 100, message="Preis zu hoch")
+    private double price;
+    
+    @Min(value= 0, message="keine Anzahl angegeben")
+    @Max(value= 10000, message="Anzahl zu hoch")
     private int count;
 
     public Cookie() {
