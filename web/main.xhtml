@@ -29,17 +29,15 @@
                 </p:tabMenu>
                 
                 <p:panel style="width:70%; float:left">
-                    <p:dataScroller value="#{CookieView.cookies()}" var="item" chunkSize="10">
+                    <p:dataScroller id="data" value="#{CookieView.cookies()}" var="item" chunkSize="10">
                         <f:facet name="header">
                             Unser Angebot
                         </f:facet>
 
-                        <h:panelGrid columns="3" columnClasses="image,detail,button">
-                            <p:panel>
-                            <!--<p:graphicImage name="resources/cookie_types/#{item.name}.png" />--> 
-                            </p:panel>
-                                
-                            <p:outputPanel>
+                        <h:panelGrid columns="3" style="width: 100%" columnClasses="image,detail,button">
+                            <p:panel>     
+                                <!--<p:graphicImage name="resources/cookie_types/#{item.name}.png" />--> 
+
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Id:" />
                                     <h:outputText value="#{item.id}" style="font-weight: bold" />
@@ -49,13 +47,13 @@
 
                                     <h:outputText value="Preis:" />
                                     <h:outputText value="#{item.price}" style="font-weight: bold" />
-                                </h:panelGrid>                                
-                            </p:outputPanel>    
-                            
-                            <p:panel style="float:right">
-                                <p:commandButton value="Bestellen" id="orderButton" action="#{CookieView.orderCookieButton(item.id)}" styleClass="ui-priority-primary" />
-                            </p:panel>
 
+                                    <h:outputText value="Anzahl:" />
+                                    <h:outputText value="#{item.count}" style="font-weight: bold" />
+                                </h:panelGrid>                                                          
+
+                                <p:commandButton style="float:right" value="Bestellen" id="orderButton" action="#{CookieView.orderCookieButton(item.id)}" styleClass="ui-priority-primary" />
+                            </p:panel>
                         </h:panelGrid>
                     </p:dataScroller>
                 </p:panel>
@@ -89,8 +87,8 @@
                     <p:separator />  
                     
                     <h:panelGrid columns="2">
-                        <h:outputLabel for="delete" value="Id: " />
-                        <p:inputText id="delete" value="#{CookieView.idToDelete}" label="Zu löschen" required="true" />
+                        <h:outputLabel for="toDelete" value="Id: " />
+                        <p:inputText id="toDelete" value="#{CookieView.idToDelete}" label="Zu löschen" required="true" />
                     </h:panelGrid>
                     <br />
                     <p:commandButton value="Löschen" id="deleteButton" update="@form" action="#{CookieView.deleteCookieButton()}" styleClass="ui-priority-primary" />
