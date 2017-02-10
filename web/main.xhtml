@@ -34,25 +34,22 @@
                             Deine Bestellung
                         </f:facet>
 
-                        <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail,button">
-                            <!--<p:graphicImage name="demo/images/car/#{car.brand}-big.gif" />-->
+                        <h:panelGrid columns="3" columnClasses="image,detail,button">
+                            <!--<p:graphicImage name="resources/cookie_types/#{item.name}.png" />--> 
 
                             <p:outputPanel>
                                 <h:panelGrid columns="2" cellpadding="5">
                                     <h:outputText value="Id:" />
-                                    <h:outputText value="#{item.id}" style="font-weight: bold"/>
+                                    <h:outputText value="#{item.id}" style="font-weight: bold">
+                                    </h:outputText>
 
                                     <h:outputText value="Name:" />
                                     <h:outputText value="#{item.name}" style="font-weight: bold"/>
 
-                                    <h:outputText value="Count:" />
-                                    <h:outputText value="#{item.count}" style="font-weight: bold"/>                                         
-                                </h:panelGrid>                                
+                                    <h:outputText value="Preis:" />
+                                    <h:outputText value="#{item.price}" style="font-weight: bold"/>
+                                </h:panelGrid>
                             </p:outputPanel>
-                           
-                            <p:panel style="float:right">
-                                <p:commandButton value="Bestellen" id="orderButton" action="#{CookieView.orderCookieButton()}" styleClass="ui-priority-primary" />
-                            </p:panel>
                         </h:panelGrid>
                     </p:dataScroller>
                 </p:panel>
@@ -70,7 +67,7 @@
 
                     <p:separator /> 
                     
-                    <h:panelGrid columns="2" id="toAddInput">                 
+                    <h:panelGrid columns="2">                 
                         <h:outputLabel for="name" value="Name: " />
                         <p:inputText id="name" value="#{CookieView.toAddName}" label="Name" required="true" />
                  
@@ -81,16 +78,16 @@
                         <p:inputText id="count" value="#{CookieView.toAddCount}" label="Anzahl" required="true" />
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Hinzufügen" id="addButton" process="toAddInput" update="growl" action="#{CookieView.addCookieButton()}" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Hinzufügen" id="ajax1" update="growl" action="#{CookieView.addCookieButton()}" styleClass="ui-priority-primary" />
                     
                     <p:separator />  
                     
-                    <h:panelGrid columns="2" id="toDeleteInput">
+                    <h:panelGrid columns="2">
                         <h:outputLabel for="delete" value="Id: " />
                         <p:inputText id="delete" value="#{CookieView.idToDelete}" label="Zu löschen" required="true" />
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Löschen" id="deleteButton" process="toDeleteInput" update="growl" action="#{CookieView.deleteCookieButton()}" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Löschen" id="ajax2" update="growl" action="#{CookieView.deleteCookieButton()}" styleClass="ui-priority-primary" />
                 </p:panel>
                     
             </h:form>
