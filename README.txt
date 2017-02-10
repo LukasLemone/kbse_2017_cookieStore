@@ -13,16 +13,16 @@ bezahlt, der andere der Preis den man gewinnt.
 '*******************************************************************************
 
 INSERT INTO APP.COOKIE(ID, COUNT, NAME, PRICE)
-VALUES (1,64,'Saftkeks',1.99);
+VALUES (1,64,'Butterkeks',1.99);
 
 INSERT INTO APP.COOKIE(ID, COUNT, NAME, PRICE)
-VALUES (2,64,'Halfbaked',2.99);
+VALUES (2,64,'Cookie',2.99);
 
 INSERT INTO APP.COOKIE(ID, COUNT, NAME, PRICE)
-VALUES (3,64,'AlterKeks',1.49);
+VALUES (3,64,'Schokokeks',1.49);
 
 INSERT INTO APP.COOKIE(ID, COUNT, NAME, PRICE)
-VALUES (4,64,'KeksPremiumRoyal',3.99);
+VALUES (4,64,'Marzipankeks',3.99);
 
 INSERT INTO APP.COOKIE(ID, COUNT, NAME, PRICE)
-VALUES (5,64,'Essbar',2.49);
+VALUES (5,64,'Lebkuchenkeks',2.49);
