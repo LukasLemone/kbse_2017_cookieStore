@@ -40,20 +40,29 @@ public class CookiePersistence {
     
     public List<Cookie> findAllCookies() {
         //muss das alles so? findAllCookies wird drei mal aufgerufen
-        System.out.println("-findAllCookies");
+        System.out.println("Aufruf findAllCookies");
         return em.createNamedQuery("Cookie.findAll", Cookie.class).getResultList();
     }
     
     public void removeCookie(int id) {
-        Cookie c = findCookie(id);
-        remove(c);
+        
+        System.out.println("Aufruf removeCookie");
+        try {
+            Cookie c = findCookie(id);
+            merge(c);
+            remove(c);
+        } catch(Exception e) {
+            System.out.println("Exception remove");
+        }
+        
     }
     
     public void addCookie(Cookie c) {
+        System.out.println("Aufruf addCookie");
         try {
             this.persist(c);
         } catch(Exception e) {
-            System.out.println("Persisistierfehler");
+            System.out.println("Exception persist");
         }
     }
 }
