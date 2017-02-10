@@ -16,15 +16,14 @@ public class CookieView implements Serializable {
     private String toAddName;
     private double toAddPrice;
     private int toAddCount;
-    
     private int idToDelete;
+    private int orderCount;
     
     @Inject
     private CookieService cs;
 
     @PostConstruct
     public void init() {        
-        
         cs.deleteAllCookies();
         
         cs.addCookie("Zimtstern", 1.99, 64);
@@ -34,7 +33,7 @@ public class CookieView implements Serializable {
         cs.addCookie("Cookie", 0.99, 64);
     }
 
-    //Buttons in main.xhtml, growl message, get cookie list
+    //Buttons in main.xhtml
     public void orderCookieButton(int toOrderId) {
         //TODO add ordered List and add Cookie
     }
@@ -50,22 +49,32 @@ public class CookieView implements Serializable {
         addMessage("Cookie gelöscht");
         cs.deleteCookie(idToDelete);
     }
-
-    public void addMessage(String summary) {
-        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
-        FacesContext.getCurrentInstance().addMessage(null, message);
+    
+    //Buttons in final.xhtml
+    public void confirmOrderButton() {
+        //TODO confirm order
     }
     
+    //Functionality
     public List<Cookie> cookies() {
         return cs.cookies();
     }
     
     public List<Cookie> orderedCookies() {
-        //TODO get ordered Cookies
+        //TODO return ordered Cookies
         return null;
     }
     
-    //Getter and Setter (required for JSF to resolve class variables)
+    public void addMessage(String summary) {
+        FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
+        FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    //Getter and Setter
+    public int getOrderCount() {
+        return orderCount;
+    } 
+
     public CookieService getCs() {
         return cs;
     } 
@@ -84,6 +93,10 @@ public class CookieView implements Serializable {
 
     public int getIdToDelete() {
         return idToDelete;
+    }
+
+    public void setOrderCount(int orderCount) {
+        this.orderCount = orderCount;
     }
     
     public void setToAddName(String toAddName) {

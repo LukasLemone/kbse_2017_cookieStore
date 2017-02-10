@@ -14,7 +14,7 @@
         <h:body>            
             <h:form>     
                 
-                <p:growl id="growl" life="2000" />
+                <p:growl id="growl" life="2000" showDetail="true" />
                 
                 <p:tabMenu activeIndex="1">
                     <p:menuitem value="Start" outcome="index">
@@ -35,26 +35,32 @@
                         </f:facet>
 
                         <h:panelGrid columns="3" style="width: 100%" columnClasses="image,detail,button">
-                            <p:panel>     
-                                <!--<p:graphicImage name="resources/cookie_types/#{item.name}.png" />--> 
+                            <!--<p:graphicImage name="resources/cookie_types/#{item.name}.png" />--> 
 
-                                <h:panelGrid columns="2" cellpadding="5">
-                                    <h:outputText value="Id:" />
-                                    <h:outputText value="#{item.id}" style="font-weight: bold" />
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <h:outputText value="Id:" />
+                                <h:outputText value="#{item.id}" style="font-weight: bold" />
 
-                                    <h:outputText value="Name:" />
-                                    <h:outputText value="#{item.name}" style="font-weight: bold" />
+                                <h:outputText value="Name:" />
+                                <h:outputText value="#{item.name}" style="font-weight: bold" />
 
-                                    <h:outputText value="Preis:" />
-                                    <h:outputText value="#{item.price}" style="font-weight: bold" />
+                                <h:outputText value="Preis:" />
+                                <h:outputText value="#{item.price}" style="font-weight: bold" />
 
-                                    <h:outputText value="Anzahl:" />
-                                    <h:outputText value="#{item.count}" style="font-weight: bold" />
-                                </h:panelGrid>                                                          
+                                <h:outputText value="Anzahl:" />
+                                <h:outputText value="#{item.count}" style="font-weight: bold" />
+                            </h:panelGrid>                                                          
 
-                                <p:commandButton style="float:right" value="Bestellen" id="orderButton" action="#{CookieView.orderCookieButton(item.id)}" styleClass="ui-priority-primary" />
-                            </p:panel>
+                            <h:panelGrid style="float:right" columns="2" cellpadding="5">
+                                <h:outputText value="Anzahl:" />
+                                <p:inputText id="count" value="#{CookieView.orderCount}" label="Anzahl:" required="true" />
+
+                                <p:commandButton value="Bestellen" update="@form" action="#{CookieView.orderCookieButton(item.id)}" styleClass="ui-priority-primary" />
+                            </h:panelGrid>          
                         </h:panelGrid>
+                        
+                        <p:separator />
+                        
                     </p:dataScroller>
                 </p:panel>
 
@@ -72,26 +78,26 @@
                     <p:separator /> 
                     
                     <h:panelGrid columns="2">                 
-                        <h:outputLabel for="name" value="Name: " />
-                        <p:inputText id="name" value="#{CookieView.toAddName}" label="Name" required="true" />
+                        <h:outputText value="Name: " />
+                        <p:inputText id="toAddName" value="#{CookieView.toAddName}" label="Name:" required="true" />
                  
-                        <h:outputLabel for="price" value="Preis: " />
-                        <p:inputText id="price" value="#{CookieView.toAddPrice}" label="Preis" required="true" />
+                        <h:outputText value="Preis: " />
+                        <p:inputText id="toAddPrice" value="#{CookieView.toAddPrice}" label="Preis:" required="true" />
               
-                        <h:outputLabel for="count" value="Anzahl: " />
-                        <p:inputText id="count" value="#{CookieView.toAddCount}" label="Anzahl" required="true" />
+                        <h:outputText value="Anzahl: " />
+                        <p:inputText id="toAddCount" value="#{CookieView.toAddCount}" label="Anzahl:" required="true" />
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Hinzufügen" id="addButton" update="@form" action="#{CookieView.addCookieButton()}" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Hinzufügen" update="@form" action="#{CookieView.addCookieButton()}" styleClass="ui-priority-primary" />
                     
                     <p:separator />  
                     
                     <h:panelGrid columns="2">
-                        <h:outputLabel for="toDelete" value="Id: " />
-                        <p:inputText id="toDelete" value="#{CookieView.idToDelete}" label="Zu löschen" required="true" />
+                        <h:outputText value="Id: " />
+                        <p:inputText id="idToDelete" value="#{CookieView.idToDelete}" label="Zu löschen;" required="true" />
                     </h:panelGrid>
                     <br />
-                    <p:commandButton value="Löschen" id="deleteButton" update="@form" action="#{CookieView.deleteCookieButton()}" styleClass="ui-priority-primary" />
+                    <p:commandButton value="Löschen" update="@form" action="#{CookieView.deleteCookieButton()}" styleClass="ui-priority-primary" />
                 </p:panel>
                     
             </h:form>
