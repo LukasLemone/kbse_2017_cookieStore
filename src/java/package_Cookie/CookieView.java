@@ -32,7 +32,7 @@ public class CookieView implements Serializable {
     }
 
     //Buttons in main.xhtml, growl message, get cookie list
-    public void orderCookieButton() {
+    public void orderCookieButton(int toOrderId) {
         //TODO add ordered List and add Cookie
     }
     
