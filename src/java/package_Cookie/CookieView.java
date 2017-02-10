@@ -24,6 +24,9 @@ public class CookieView implements Serializable {
 
     @PostConstruct
     public void init() {        
+        
+        cs.deleteAllCookies();
+        
         cs.addCookie("Zimtstern", 1.99, 64);
         cs.addCookie("Brownie", 2.49, 64);
         cs.addCookie("Makrone", 2.99, 64);

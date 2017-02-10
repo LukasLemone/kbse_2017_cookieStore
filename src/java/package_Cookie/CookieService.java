@@ -24,14 +24,21 @@ public class CookieService implements Serializable {
     //add cookie with parameters
     public void addCookie(String name, double price, int count) {
         Cookie c = new Cookie();
-        c.setCount(count);
         c.setName(name);
+        c.setCount(count);
         c.setPrice(price);
         this.db.addCookie(c);
     }
     
     //delete cookie with id
     public void deleteCookie(int id) {
-        this.db.remove(db);
+        this.db.removeCookie(id);
     } 
+    
+    //
+    public void deleteAllCookies() {
+        for(Cookie c : this.db.findAllCookies()) {
+            this.db.removeCookie(c.getId());
+        }
+    }
 }
