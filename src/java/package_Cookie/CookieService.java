@@ -14,7 +14,7 @@ public class CookieService implements Serializable {
     
     //return all cookies as list
     public List<Cookie> cookies() {
-        List <Cookie> erg = new ArrayList<>();
+        List <Cookie> erg = new ArrayList<Cookie>();
         for(Cookie c : this.db.findAllCookies()) {
             erg.add(c);
         }
@@ -31,7 +31,7 @@ public class CookieService implements Serializable {
     }
     
     //delete cookie with id
-    public void deleteCookie(Long id) {
-        
-    }    
+    public void deleteCookie(int id) {
+        this.db.remove(db);
+    } 
 }

@@ -34,7 +34,7 @@ public class CookiePersistence {
     
     //--------------cookie-persistence-stuff-------------------------------------
     
-    public Cookie findCookie(Long id) {
+    public Cookie findCookie(int id) {
         return this.em.find(Cookie.class, id);
     }
     
@@ -44,7 +44,7 @@ public class CookiePersistence {
         return em.createNamedQuery("Cookie.findAll", Cookie.class).getResultList();
     }
     
-    public void removeCookie(Long id) {
+    public void removeCookie(int id) {
         Cookie c = findCookie(id);
         remove(c);
     }
@@ -55,5 +55,5 @@ public class CookiePersistence {
         } catch(Exception e) {
             System.out.println("Persisistierfehler");
         }
-    }   
+    }
 }

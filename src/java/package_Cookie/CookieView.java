@@ -8,36 +8,27 @@ import javax.inject.Inject;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
+import javax.inject.Named;
 
-//@Named("CookieView")
-//@SessionScoped
-//@ViewScoped
-//@ManagedBean
-@ManagedBean
+@Named("CookieView")
 @SessionScoped
 public class CookieView implements Serializable {
     
     @Inject
     private CookieService cs;
     
-    @PostConstruct
-    public void init() {
-        this.cookies = new ArrayList<>();
-        Cookie c = new Cookie("Test", 1.5, 64);
-        this.cookies.add(c);
-        
-        //cs.addCookie("Zimtstern", 10.8, 30);
-        //cs.addCookie("Brownies", 21.3, 3);
-        //cs.addCookie("Makronen", 2.3, 22);
-    }
-    
-    private List<Cookie> cookies;
-    
     private String toAddName;
     private double toAddPrice;
     private int toAddCount;
-    private Long idToDelete;
+    private int idToDelete;
+    
+    @PostConstruct
+    public void init() {
+        
+        cs.addCookie("Zimtstern", 10.8, 30);
+        cs.addCookie("Brownies", 21.3, 3);
+        cs.addCookie("Makronen", 2.3, 22);
+    }
 
     //Buttons in main.xhtml, growl message, get cookie list
     public void addCookieButton() {
@@ -61,14 +52,7 @@ public class CookieView implements Serializable {
         return cs.cookies();
     }
     
-    //Getter and Setter (required for JSF to resolve class variables)
-    public CookieService getCs() {
-        return cs;
-    }
-
-    public List<Cookie> getCookies() {
-        return cookies;
-    }    
+    //Getter and Setter (required for JSF to resolve class variables)    
     
      public String getToAddName() {
         return toAddName;
@@ -82,16 +66,8 @@ public class CookieView implements Serializable {
         return toAddCount;
     }
 
-    public Long getIdToDelete() {
+    public int getIdToDelete() {
         return idToDelete;
-    }
-
-    public void setCs(CookieService cs) {
-        this.cs = cs;
-    }
-
-    public void setCookies(List<Cookie> cookies) {
-        this.cookies = cookies;
     }
     
     public void setToAddName(String toAddName) {
@@ -106,7 +82,7 @@ public class CookieView implements Serializable {
         this.toAddCount = toAddCount;
     }
 
-    public void setIdToDelete(Long idToDelete) {
+    public void setIdToDelete(int idToDelete) {
         this.idToDelete = idToDelete;
     }
 }
