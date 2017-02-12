@@ -11,12 +11,19 @@
         </h:head>
 
         <h:body>
-            <!-- <h1 align="center" style="font-family: sans-serif">Luto - Cookiestore</h1> -->
-            
+             
             <div align="center">
-                <h:graphicImage value="resources/cookies.jpg" width="50%" height="50%" />
                 <br/>
-                <p:button value="Zum Cookiestore" outcome="main"/>               
+                <h:outputText value="Willkommen im" style="font-family: sans-serif; font-size: 60px" />
+                <br/>
+                <h:outputText value="Luto Cookiestore!" style="font-family: sans-serif; font-size: 90px" />
+                <br/>
+                <h:graphicImage value="resources/cookies.jpg" width="30%" height="30%" />
+                <br/>
+                <h:outputText value="© Lukas Völler, Tobias Gels v 0.6.5-0001" style="font-family:sans-serif; font-size:15px" />
+                <br/>
+                <p:button style="margin-top:50px" value="Zum Store" outcome="main"/>
+                <br/>
             </div>
             
         </h:body>

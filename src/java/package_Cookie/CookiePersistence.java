@@ -32,7 +32,7 @@ public class CookiePersistence {
         em.refresh(object);
     }
     
-    //--------------cookie-persistence-stuff-------------------------------------
+    //--------------cookie-stuff-------------------------------------
     
     public Cookie findCookie(int id) {
         return this.em.find(Cookie.class, id);
@@ -64,5 +64,83 @@ public class CookiePersistence {
         } catch(Exception e) {
             System.out.println("Exception persist");
         }
+    }
+    
+    //--------------Bestellung-Stuff-------------------
+        
+    public Bestellung findBestellung(int id) {
+        return this.em.find(Bestellung.class, id);
+    }
+    
+    public List<Bestellung> findAllBestellungen() {
+        System.out.println("Aufruf findAllBestellungen");
+        return em.createNamedQuery("Bestellung.findAll", Bestellung.class).getResultList();
+    }
+    
+    public void removeBestellung(int id) {
+        
+        System.out.println("Aufruf removeBestellung");
+        try {
+            Bestellung b = findBestellung(id);
+            merge(b);
+            removeBestellung(b);
+        } catch(Exception e) {
+            System.out.println("Exception remove");
+        }
+        
+    }
+    
+    public void removeBestellung(Bestellung b) {
+        for(Bestellposten bp : b.getOrdered()) {
+            remove(bp);
+        }
+        remove(b);
+    }
+    
+    public void addBestellung(Bestellung b) {
+        System.out.println("Aufruf addBestellung");
+        try {
+            
+            this.persist(b);
+        } catch(Exception e) {
+            System.out.println("Exception persist");
+        }
+    }
+    
+    //--------------Bestellposten-Stuff-------------------
+    
+    public void addBestellposten(int id, Bestellposten bp) {
+        Bestellung b = this.findBestellung(id);
+        try {
+           b.addBestellposten(bp);
+           bp.setBestellung(b);
+           this.merge(b);
+           this.persist(bp);
+        } catch (Exception e) {
+            System.out.println("Exception persist");
+        }
+    }
+    
+    public Bestellposten findBestellposten(int id) {
+        return this.em.find(Bestellposten.class, id);
+    }
+    
+    public List<Bestellposten> findAllBestellposten() {
+        return em.createNamedQuery("Bestellposten.findAll",Bestellposten.class).getResultList();
+    }
+    
+    public void removeBestellposten(int id) {
+        Bestellposten bp = em.find(Bestellposten.class, id);
+        removeBestellposten(bp);
+    }
+    
+    public void removeBestellposten(Bestellposten bp) {
+        try {
+            this.merge(bp);
+            remove(bp);
+        }catch(Exception e) {
+            System.out.println("Exception persist");
+        }
+        
     }
 }
