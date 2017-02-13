@@ -41,6 +41,8 @@ public class CookieView implements Serializable {
     public void orderCookieButton(int toOrderId) {
         if(cs.findCookie(toOrderId).getCount() < orderCount){
             addMessage("Vorrat reicht nicht aus");
+        }else if(orderCount <= 0){
+            addMessage("Bitte Menge angeben");
         }else{
             String nName = cs.findCookie(toOrderId).getName();
             double nPrice = cs.findCookie(toOrderId).getPrice();
@@ -73,8 +75,11 @@ public class CookieView implements Serializable {
     }
     
     //Buttons in final.xhtml
+    public void orderDeleteCookieButton(int toOrderId) {
+        //TODO delete cookie from order
+    }
     public void confirmOrderButton() {
-        //TODO confirm order
+        //TODO confirm order and goto final.xhtml
     }
     
     //Functionality
