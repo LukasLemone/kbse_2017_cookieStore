@@ -23,40 +23,40 @@ import javax.persistence.OneToMany;
     @NamedQuery(name = "Bestellung.findBestellposten",
             query = "SELECT b FROM Bestellung s JOIN s.ordered b WHERE s.id = :id")
 })
-public class Bestellung implements Serializable {
+public class Order implements Serializable {
     
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
-    private String besteller;
+    private String customer;
     
-    @OneToMany(mappedBy = "bestellung", cascade = CascadeType.PERSIST)
-    private List<Bestellposten> ordered;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.PERSIST)
+    private List<OrderItem> ordered;
     
-    public Bestellung() {
-        this.ordered = new ArrayList<Bestellposten>();
+    public Order() {
+        this.ordered = new ArrayList<OrderItem>();
     }
     
-    public void addBestellposten(Bestellposten bp){
-        this.ordered.add(bp);
+    public void addOrderItem(OrderItem oi){
+        this.ordered.add(oi);
     }
     
-    public void removeBestellposten(Bestellposten bp){
+    public void removeOrderItem(OrderItem bp){
         this.ordered.remove(bp);
     }
 
-    public void setBesteller(String besteller) {
-        this.besteller = besteller;
+    public void setCustomer(String customer) {
+        this.customer = customer;
     }
 
-    public void setOrdered(List<Bestellposten> ordered) {
+    public void setOrdered(List<OrderItem> ordered) {
         this.ordered = ordered;
     }
 
-    public String getBesteller() {
-        return besteller;
+    public String getCustomer() {
+        return customer;
     }
 
-    public List<Bestellposten> getOrdered() {
+    public List<OrderItem> getOrdered() {
         return ordered;
     }
 
@@ -64,11 +64,11 @@ public class Bestellung implements Serializable {
         return id;
     }
     
-    public void addBestellPosten(Bestellposten bp) {
-        this.ordered.add(bp);
+    public void addOrderItemToOrdered(OrderItem oi) {
+        this.ordered.add(oi);
     }
     
-    public void removeBestellPosten(Bestellposten bp) {
-        this.ordered.remove(bp);
+    public void removeOrderItemFromOrdered(OrderItem oi) {
+        this.ordered.remove(oi);
     }
 }

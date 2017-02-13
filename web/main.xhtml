@@ -13,7 +13,6 @@
 
         <h:body>            
             <h:form>     
-                
                 <p:growl id="growl" life="2000" />
                 
                 <p:tabMenu activeIndex="1">
@@ -39,16 +38,16 @@
                             
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Id:" />
-                                <h:outputText value="#{item.id}" style="font-weight: bold" />
+                                <h:outputText value="#{item.id}" style="font-weight:bold" />
 
                                 <h:outputText value="Name:" />
-                                <h:outputText value="#{item.name}" style="font-weight: bold" />
+                                <h:outputText value="#{item.name}" style="font-weight:bold" />
 
                                 <h:outputText value="Preis:" />
-                                <h:outputText value="#{item.price}" style="font-weight: bold" />
+                                <h:outputText value="#{item.price}" style="font-weight:bold" />
 
                                 <h:outputText value="Anzahl:" />
-                                <h:outputText value="#{item.count}" style="font-weight: bold" />
+                                <h:outputText value="#{item.count}" style="font-weight:bold" />
                             </h:panelGrid>  
 
                             <h:panelGrid id="toOrder" style="float:right" columns="2" cellpadding="5">
@@ -99,7 +98,6 @@
                     <br />
                     <p:commandButton value="Löschen" process="@this toDelete" update="@form" action="#{CookieView.deleteCookieButton()}" />
                 </p:panel>
-                    
             </h:form>
         </h:body>
     </f:view>

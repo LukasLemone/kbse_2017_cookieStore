@@ -65,21 +65,21 @@ public class CookiePersistence {
     }
     
     //Bestellung Funktionen
-    public Bestellung findBestellung(int id) {
-        return this.em.find(Bestellung.class, id);
+    public Order findBestellung(int id) {
+        return this.em.find(Order.class, id);
     }
     
-    public List<Bestellung> findAllBestellungen() {
+    public List<Order> findAllBestellungen() {
         System.out.println("Aufruf findAllBestellungen");
-        return em.createNamedQuery("Bestellung.findAll", Bestellung.class).getResultList();
+        return em.createNamedQuery("Bestellung.findAll", Order.class).getResultList();
     }
     
     public void removeBestellung(int id) {
-        Bestellung b = findBestellung(id);
+        Order b = findBestellung(id);
         System.out.println("Aufruf remove Bestellung");
         
         try {
-            for(Bestellposten bp : b.getOrdered()) {
+            for(OrderItem bp : b.getOrdered()) {
                 removeBestellposten(id, bp);
             }
             remove(b);
@@ -89,7 +89,7 @@ public class CookiePersistence {
         }
     }
     
-    public void addBestellung(Bestellung b) {
+    public void addBestellung(Order b) {
         System.out.println("Aufruf addBestellung");
         
         try {
@@ -100,12 +100,12 @@ public class CookiePersistence {
     }
     
     //Bestellposten Funktionen
-    public void addBestellposten(int id, Bestellposten bp) {
-        Bestellung b = this.findBestellung(id);
+    public void addBestellposten(int id, OrderItem bp) {
+        Order b = this.findBestellung(id);
         
         try {
-           b.addBestellposten(bp);
-           bp.setBestellung(b);
+           b.addOrderItem(bp);
+           bp.setOrder(b);
            this.persist(bp);
            System.out.println("Erfolg persist Bestellposten");
         } catch (Exception e) {
@@ -113,18 +113,18 @@ public class CookiePersistence {
         }
     }
     
-    public Bestellposten findBestellposten(int id) {
-        return this.em.find(Bestellposten.class, id);
+    public OrderItem findBestellposten(int id) {
+        return this.em.find(OrderItem.class, id);
     }
     
-    public List<Bestellposten> findAllBestellposten() {
-        return em.createNamedQuery("Bestellposten.findAll",Bestellposten.class).getResultList();
+    public List<OrderItem> findAllBestellposten() {
+        return em.createNamedQuery("Bestellposten.findAll",OrderItem.class).getResultList();
     }
     
-    public void removeBestellposten(int id, Bestellposten bp) {
+    public void removeBestellposten(int id, OrderItem bp) {
         System.out.println("Aufruf remove Bestellposten");
         
-        Bestellung b = this.findBestellung(id);
+        Order b = this.findBestellung(id);
         try {
             this.merge(bp);
             remove(bp);

@@ -12,7 +12,6 @@
         
         <h:body>
             <h:form>  
-                
                 <p:growl id="growl" life="2000" />
                 
                 <p:tabMenu activeIndex="2">
@@ -28,7 +27,7 @@
                 </p:tabMenu>
                 
                 <p:panel style="width:70%; float:left">
-                    <p:dataScroller id="data" value="#{CookieView.ordered_cookies()}" var="item" chunkSize="10">
+                    <p:dataScroller id="data" value="#{CookieView.orderedCookies()}" var="item" chunkSize="10">
                         <f:facet name="header">
                             Deine Bestellung
                         </f:facet>
@@ -38,16 +37,16 @@
                             
                             <h:panelGrid columns="2" cellpadding="5">
                                 <h:outputText value="Id:" />
-                                <h:outputText value="#{item.id}" style="font-weight: bold" />
+                                <h:outputText value="#{item.id}" style="font-weight:bold" />
 
                                 <h:outputText value="Name:" />
-                                <h:outputText value="#{item.name}" style="font-weight: bold" />
+                                <h:outputText value="#{item.name}" style="font-weight:bold" />
 
                                 <h:outputText value="Preis:" />
-                                <h:outputText value="#{item.price}" style="font-weight: bold" />
+                                <h:outputText value="#{item.price}" style="font-weight:bold" />
 
                                 <h:outputText value="Anzahl:" />
-                                <h:outputText value="#{CookieView.getBestellungCount(item.id)}" style="font-weight: bold" />
+                                <h:outputText value="#{CookieView.getBestellungCount(item.id)}" style="font-weight:bold" />
                             </h:panelGrid>  
 
                             <p:commandButton value="Löschen" update="@form" action="#{CookieView.orderDeleteCookieButton(item.id)}" />
@@ -71,6 +70,12 @@
 
                     <div align="center">
                         <br/>
+                        <p:panel>
+                            <f:facet name="header">
+                                Gesamtbetrag
+                            </f:facet>
+                            <h:outputText value="16.50€" style="font-weight:bold; font-size:20px" />
+                        </p:panel>
                         <br/>
                         <br/>
                         <p:commandButton value="Bestellung bestätigen" id="confirmOrderButton" update="@form" action="#{CookieView.confirmOrderButton()}" styleClass="ui-priority-primary" />
@@ -79,7 +84,6 @@
                         <br/>
                     </div>
                 </p:panel>
-                
             </h:form>
         </h:body>
     </f:view>
