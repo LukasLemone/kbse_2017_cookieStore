@@ -8,6 +8,7 @@ package package_Cookie;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -37,7 +38,7 @@ public class Bestellung implements Serializable{
     private int id;
     private String besteller;
     
-    @OneToMany(mappedBy = "bestellung", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "bestellung", cascade = CascadeType.PERSIST)
     private List<Bestellposten> ordered;
     
     public Bestellung() {

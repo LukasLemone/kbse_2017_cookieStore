@@ -23,7 +23,6 @@ public class BestellService implements Serializable{
 
     //--------------------- Bestellung --------------------------
     public void addBestellung() {
-        
         Bestellung b = new Bestellung();
         this.db.addBestellung(b);
     }
@@ -43,12 +42,8 @@ public class BestellService implements Serializable{
         return erg;
     }
 
-    public void removeBestellung(int id) {
+    public void deleteBestellung(int id) {
         this.db.removeBestellung(id);
-    }
-
-    public void removeBestellung(Bestellung b) {
-        this.db.removeBestellung(b);
     }
     
     public Bestellung findBestellung(int id) {
@@ -56,15 +51,27 @@ public class BestellService implements Serializable{
         return b;
     }
     
+    public void deleteAllBestellungen() {
+        for(Bestellung b : allBestellungen()) {
+            deleteBestellung(b.getId());
+        }
+    }
+    
     //----------------------- Bestellposten -------------------------
     public void addBestellposten(int bestellungId, int cookieId, int count) {
-        Bestellposten bp = new Bestellposten();
-        //Bestellung b = this.db.findBestellung(bestellungId);
-        bp.setCount(count);
-        bp.setCookieId(cookieId);
-        bp.setStatus(false);
-        //bp.setBestellung(b);
-        this.db.addBestellposten(bestellungId, bp);
+        
+        //is there already an order with this cookietype?
+        Bestellposten bp = findBestellpostenByCookie(cookieId);
+        if(bp== null) {
+            bp = new Bestellposten();
+            bp.setCount(count);
+            bp.setCookieId(cookieId);
+            bp.setStatus(false);
+            this.db.addBestellposten(bestellungId, bp);
+        } else {
+            bp.setCount(count);
+            updateBestellposten(bp);
+        }
     }
     
     public List<Bestellposten> allBestellposten(int bestellungId) {
@@ -103,14 +110,13 @@ public class BestellService implements Serializable{
         }
         return bpp;
     }
-    
 
-    public void removeBeitrag(Bestellposten bp) {
-        this.db.removeBestellposten(bp);
+    public void deleteBestellposten(int id, Bestellposten bp) {
+        this.db.removeBestellposten(id, bp);
     }
-
-    public void removeBeitrag(int id) {
-        this.db.removeBestellposten(id);
+    
+    public void updateBestellposten(Bestellposten bp) {
+        this.db.merge(bp);
     }
 
 }
