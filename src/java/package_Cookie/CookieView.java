@@ -32,6 +32,7 @@ public class CookieView implements Serializable {
     @PostConstruct
     public void init() {
         cs.deleteAllCookies();
+        bs.deleteAllBestellungen();
         
         
         cs.addCookie("Schoko", 1.99, 64);
@@ -59,6 +60,7 @@ public class CookieView implements Serializable {
         }else{
             bs.addBestellposten(order.getId(), toOrderId, orderCount);
             addMessage("Zur Bestellung hinzugefügt");
+            orderCount = 0;
         }  
     }
     
@@ -102,6 +104,7 @@ public class CookieView implements Serializable {
                     
                     //bestellstatus auf positiv
                     bp.setStatus(true);
+                    bs.updateBestellposten(bp);
                 }
             }
         }
@@ -117,7 +120,15 @@ public class CookieView implements Serializable {
     public void rewind() {
         for(Bestellposten bp : bs.allBestellposten(order.getId())) {
             if(bp.isStatus() == true) {
-                cs.findCookie(bp.getCookieId()).increaseCount(bp.getCount());
+                
+                //bearbeitete posten wieder hochzählen
+                Cookie c = cs.findCookie(bp.getCookieId());
+                c.setCount(c.getCount() + bp.getCount());
+                cs.updateCookie(c);
+                
+                //Status des Bestellpostens zurücksetzen
+                bp.setStatus(false);
+                bs.updateBestellposten(bp);
             }
         }
     }

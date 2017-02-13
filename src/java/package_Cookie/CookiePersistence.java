@@ -73,22 +73,21 @@ public class CookiePersistence {
     }
     
     public List<Bestellung> findAllBestellungen() {
-        System.out.println("Aufruf findAllBestellungen");
         return em.createNamedQuery("Bestellung.findAll", Bestellung.class).getResultList();
     }
     
     public void removeBestellung(int id) {
         
+        Bestellung b = findBestellung(id);
         System.out.println("Aufruf remove Bestellung");
         try {
-            Bestellung b = findBestellung(id);
             for(Bestellposten bp: b.getOrdered()) {
                 removeBestellposten(id,bp);
             }
-            merge(b);
             remove(b);
+            System.out.println("Erfolg remove Bestellung "+b.getId());
         } catch(Exception e) {
-            System.out.println("Exception remove Bestellung");
+            System.out.println("Exception remove Bestellung "+b.getId());
         }
     }
     
@@ -110,8 +109,8 @@ public class CookiePersistence {
         try {
            b.addBestellposten(bp);
            bp.setBestellung(b);
-           this.merge(bp);
            this.persist(bp);
+           System.out.println("Erfolg persist Bestellposten");
         } catch (Exception e) {
             System.out.println("Exception persist Bestellposten");
         }
@@ -131,10 +130,11 @@ public class CookiePersistence {
         
         Bestellung b = this.findBestellung(id);
         try {
-            this.merge(b);
+            this.merge(bp);
             remove(bp);
+            System.out.println("Erfolg remove Bestellposten "+bp.getId());
         }catch(Exception e) {
-            System.out.println("Exception remove Bestellposten");
+            System.out.println("Exception remove Bestellposten "+bp.getId());
         }
     }
 }

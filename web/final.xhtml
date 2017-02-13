@@ -52,7 +52,7 @@
                                 </h:panelGrid>   
                                 <h:panelGrid id="price" style="float:right" columns="2" cellpadding="5">
                                     <h:outputText value="Preis" />
-                                    <h:outputText value="23.90" />
+                                    <h:outputText value="#{CookieView.getSummedPrice(item.id)}" />
                                 </h:panelGrid>
                             </p:panel>
                         </h:panelGrid>
