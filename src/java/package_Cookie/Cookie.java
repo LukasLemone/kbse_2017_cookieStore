@@ -15,9 +15,9 @@ import javax.validation.constraints.NotNull;
 @NamedQueries({
     @NamedQuery(name = "Cookie.findAll",
             query = "SELECT o FROM Cookie o"),
-    @NamedQuery(name = "Beitrag.find",
+    @NamedQuery(name = "Cookie.find",
             query = "SELECT o FROM Cookie o WHERE o.id = :id"),
-    @NamedQuery(name = "Beitrag.remove",
+    @NamedQuery(name = "Cookie.remove",
             query = "DELETE FROM Cookie o WHERE o.id = :id")
 })
 public class Cookie implements Serializable {
@@ -67,7 +67,15 @@ public class Cookie implements Serializable {
     }
     public void setCount(int count) {
         this.count = count;
-    }   
+    }
+    
+    public void decreaseCount(int count) {
+        this.count -= count;
+    }
+    
+    public void increaseCount(int count) {
+        this.count += count;
+    }
   
 
     @Override
