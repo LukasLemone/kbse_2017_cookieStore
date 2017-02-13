@@ -107,4 +107,13 @@ public class BestellService implements Serializable {
     public void updateBestellposten(Bestellposten bp) {
         this.db.merge(bp);
     }
+    
+    public double getBestellungPrice(int id) {
+        double erg = 0;
+        Bestellung b = db.findBestellung(id);
+        for(Bestellposten bp : b.getOrdered()) {
+            erg += db.findCookie(bp.getCookieId()).getPrice();
+        }
+        return erg;
+    }
 }

@@ -135,7 +135,7 @@ public class CookieView implements Serializable {
         return bp.getCount();
     }
     
-    public double getSummedPrice(int id) {
+    public double getBestellpostenPrice(int id) {
         Bestellposten bp = bs.findBestellpostenByCookie(id, this.order.getId());
         return  bp.getCount() * cs.findCookie(id).getPrice();
     }
@@ -151,6 +151,10 @@ public class CookieView implements Serializable {
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
         FacesContext.getCurrentInstance().addMessage(null, message);
+    }
+    
+    public double getBestellungPrice() {
+        return bs.getBestellungPrice(order.getId());
     }
     
     //Getter & Setter
