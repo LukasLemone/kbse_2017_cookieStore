@@ -62,7 +62,7 @@ public class BestellService implements Serializable{
         
         //is there already an order with this cookietype?
         Bestellposten bp = findBestellpostenByCookie(cookieId);
-        if(bp== null) {
+        if(bp == null) {
             bp = new Bestellposten();
             bp.setCount(count);
             bp.setCookieId(cookieId);
@@ -110,13 +110,13 @@ public class BestellService implements Serializable{
         }
         return bpp;
     }
-
-    public void deleteBestellposten(int id, Bestellposten bp) {
-        this.db.removeBestellposten(id, bp);
-    }
     
+
+    public void deleteBestellposten(int id,Bestellposten bp) {
+        this.db.removeBestellposten(id,bp);
+    }
+
     public void updateBestellposten(Bestellposten bp) {
         this.db.merge(bp);
     }
-
 }

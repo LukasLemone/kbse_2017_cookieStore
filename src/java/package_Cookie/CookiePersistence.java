@@ -48,11 +48,13 @@ public class CookiePersistence {
         
         System.out.println("Aufruf removeCookie");
         try {
+            
+            
             Cookie c = findCookie(id);
             merge(c);
             remove(c);
         } catch(Exception e) {
-            System.out.println("Exception remove Cookie");
+            System.out.println("Exception remove");
         }
         
     }
@@ -73,6 +75,7 @@ public class CookiePersistence {
     }
     
     public List<Bestellung> findAllBestellungen() {
+        System.out.println("Aufruf findAllBestellungen");
         return em.createNamedQuery("Bestellung.findAll", Bestellung.class).getResultList();
     }
     
@@ -81,16 +84,16 @@ public class CookiePersistence {
         Bestellung b = findBestellung(id);
         System.out.println("Aufruf remove Bestellung");
         try {
-            for(Bestellposten bp: b.getOrdered()) {
-                removeBestellposten(id,bp);
+            for(Bestellposten bp : b.getOrdered()) {
+                removeBestellposten(id, bp);
             }
             remove(b);
-            System.out.println("Erfolg remove Bestellung "+b.getId());
+            System.out.println("Erfolg remove Bestellung");
         } catch(Exception e) {
             System.out.println("Exception remove Bestellung "+b.getId());
         }
+        
     }
-    
     
     public void addBestellung(Bestellung b) {
         System.out.println("Aufruf addBestellung");
@@ -132,9 +135,9 @@ public class CookiePersistence {
         try {
             this.merge(bp);
             remove(bp);
-            System.out.println("Erfolg remove Bestellposten "+bp.getId());
-        }catch(Exception e) {
-            System.out.println("Exception remove Bestellposten "+bp.getId());
+            System.out.println("erfolg remove Bestellposten "+bp.getId());
+        } catch(Exception e) {
+            System.out.println("Exception remomve Bestellposten "+bp.getId());
         }
     }
 }

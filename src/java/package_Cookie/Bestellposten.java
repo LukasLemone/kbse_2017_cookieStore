@@ -35,7 +35,7 @@ class Bestellposten implements Serializable {
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
-    @ManyToOne(cascade=CascadeType.PERSIST)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @Valid
     private Bestellung bestellung;
     
