@@ -50,7 +50,7 @@ public class BestellService implements Serializable {
     //Bestellposten
     public void addBestellposten(int bestellungId, int cookieId, int count) {
         //Is there already an order with this cookietype?
-        Bestellposten bp = findBestellpostenByCookie(cookieId);
+        Bestellposten bp = findBestellpostenByCookie(cookieId, bestellungId);
         if(bp == null) {
             bp = new Bestellposten();
             bp.setCount(count);
@@ -88,15 +88,17 @@ public class BestellService implements Serializable {
         return bp;
     }
     
-    public Bestellposten findBestellpostenByCookie(int id) {
+    public Bestellposten findBestellpostenByCookie(int cid, int bid) {
         Bestellposten bpp = null;
-        for(Bestellposten bp : this.db.findAllBestellposten()) {
-            if(bp.getCookieId() == id) {
+        Bestellung b = this.db.findBestellung(bid);
+        for(Bestellposten bp : b.getOrdered()) {
+            if(bp.getCookieId() == cid) {
                 bpp = bp;
             }
         }
         return bpp;
     }
+    
 
     public void deleteBestellposten(int id,Bestellposten bp) {
         this.db.removeBestellposten(id,bp);

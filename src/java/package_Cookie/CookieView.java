@@ -125,16 +125,18 @@ public class CookieView implements Serializable {
                 bs.updateBestellposten(bp);
             }
         }
+
     }
     
-    //Funktionalität
+    //Functionality
+    
     public int getBestellungCount(int id) {
-        Bestellposten bp = bs.findBestellpostenByCookie(id);
+        Bestellposten bp = bs.findBestellpostenByCookie(id, this.order.getId());
         return bp.getCount();
     }
     
     public double getSummedPrice(int id) {
-        Bestellposten bp = bs.findBestellpostenByCookie(id);
+        Bestellposten bp = bs.findBestellpostenByCookie(id, this.order.getId());
         return  bp.getCount() * cs.findCookie(id).getPrice();
     }
     
