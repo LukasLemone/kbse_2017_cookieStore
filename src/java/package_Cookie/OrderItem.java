@@ -20,25 +20,25 @@ import javax.validation.Valid;
     @NamedQuery(name = "Bestellposten.remove",
             query = "DELETE FROM Bestellposten o WHERE o.id = :id")
 })
-class Bestellposten implements Serializable {
+class OrderItem implements Serializable {
     
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
     @ManyToOne(cascade = CascadeType.PERSIST)
     @Valid
-    private Bestellung bestellung;
+    private Order order;
     
     private int cookieId;
     private int count;
     private boolean status;
 
-    public Bestellung getBestellung() {
-        return bestellung;
+    public Order getOrder() {
+        return order;
     }
 
-    public void setBestellung(Bestellung bestellung) {
-        this.bestellung = bestellung;
+    public void setOrder(Order order) {
+        this.order = order;
     }
 
     public void setStatus(boolean status) {

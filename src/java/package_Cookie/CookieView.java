@@ -19,18 +19,18 @@ public class CookieView implements Serializable {
     private int idToDelete;
     private int orderCount;
     
-    private Bestellung order;
+    private Order order;
     
     @Inject
     private CookieService cs;
     
     @Inject
-    private BestellService bs;
+    private OrderService bs;
 
     @PostConstruct
     public void init() {
         cs.deleteAllCookies();
-        bs.deleteAllBestellungen();
+        bs.deleteEveryOrder();
         
         cs.addCookie("Schoko", 1.99, 64);
         cs.addCookie("Halbkorn", 2.49, 64);
@@ -38,8 +38,8 @@ public class CookieView implements Serializable {
         cs.addCookie("Schokomilch", 1.49, 64);
         cs.addCookie("Vollkorn", 0.99, 64);
         
-        order = new Bestellung();
-        bs.addBestellung(order);
+        order = new Order();
+        bs.addOrder(order);
         orderCount = 0;
     }
 
@@ -50,7 +50,7 @@ public class CookieView implements Serializable {
         }else if(orderCount <= 0){
             addMessage("Bitte Menge angeben");
         }else{
-            bs.addBestellposten(order.getId(), toOrderId, orderCount);
+            bs.addOrderItem(order.getId(), toOrderId, orderCount);
             addMessage("Zur Bestellung hinzugefügt");
             orderCount = 0;
         }  
@@ -79,7 +79,7 @@ public class CookieView implements Serializable {
         //TODO delete cookie from order
     }
     public void confirmOrderButton() {
-        for(Bestellposten bp : bs.allBestellposten(order.getId())) {
+        for(OrderItem bp : bs.allOrderItems(order.getId())) {
             if(!cs.isThereCookie(bp.getCookieId())) {
                 addMessage("Cookie "+bp.getCookieId()+" existiert nicht mehr");
                 rewind();
@@ -98,7 +98,7 @@ public class CookieView implements Serializable {
                     
                     //Bestellstatus auf positiv
                     bp.setStatus(true);
-                    bs.updateBestellposten(bp);
+                    bs.updateOrderItem(bp);
                 }
             }
         }
@@ -106,13 +106,13 @@ public class CookieView implements Serializable {
         //Aufräumen
         addMessage("Bestellung erfolgreich");
         orderCount = 0;
-        order = new Bestellung();
-        bs.addBestellung(order);
+        order = new Order();
+        bs.addOrder(order);
     }
     
     //Bestellung bei Fehler wieder rückgängig machen
     public void rewind() {
-        for(Bestellposten bp : bs.allBestellposten(order.getId())) {
+        for(OrderItem bp : bs.allOrderItems(order.getId())) {
             if(bp.isStatus() == true) {
                 
                 //Bearbeitete Posten wieder hochzählen
@@ -122,7 +122,7 @@ public class CookieView implements Serializable {
                 
                 //Status des Bestellpostens zurücksetzen
                 bp.setStatus(false);
-                bs.updateBestellposten(bp);
+                bs.updateOrderItem(bp);
             }
         }
 
@@ -131,12 +131,12 @@ public class CookieView implements Serializable {
     //Functionality
     
     public int getBestellungCount(int id) {
-        Bestellposten bp = bs.findBestellpostenByCookie(id, this.order.getId());
+        OrderItem bp = bs.findOrderItemByCookie(id, this.order.getId());
         return bp.getCount();
     }
     
     public double getSummedPrice(int id) {
-        Bestellposten bp = bs.findBestellpostenByCookie(id, this.order.getId());
+        OrderItem bp = bs.findOrderItemByCookie(id, this.order.getId());
         return  bp.getCount() * cs.findCookie(id).getPrice();
     }
     

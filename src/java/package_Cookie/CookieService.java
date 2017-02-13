@@ -22,8 +22,8 @@ public class CookieService implements Serializable {
     
     public List<Cookie> ordered_cookies(int bestellung) {
         List <Cookie> erg = new ArrayList<Cookie>();
-        Bestellung b = db.findBestellung(bestellung);
-        for(Bestellposten bp : b.getOrdered()) {
+        Order b = db.findBestellung(bestellung);
+        for(OrderItem bp : b.getOrdered()) {
             erg.add(db.findCookie(bp.getCookieId()));
         }
         return erg;
