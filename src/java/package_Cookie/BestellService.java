@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package package_Cookie;
 
 import java.io.Serializable;
@@ -11,17 +6,13 @@ import java.util.List;
 import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
 
-/**
- *
- * @author tobias
- */
- @Dependent
-public class BestellService implements Serializable{
+@Dependent
+public class BestellService implements Serializable {
 
     @Inject
     private CookiePersistence db;
 
-    //--------------------- Bestellung --------------------------
+    //Bestellung
     public void addBestellung() {
         Bestellung b = new Bestellung();
         this.db.addBestellung(b);
@@ -32,7 +23,6 @@ public class BestellService implements Serializable{
     }
 
     public List<Bestellung> allBestellungen() {
-
         List<Bestellung> erg = new ArrayList<Bestellung>();
 
         for (Bestellung b : this.db.findAllBestellungen()) {
@@ -57,10 +47,9 @@ public class BestellService implements Serializable{
         }
     }
     
-    //----------------------- Bestellposten -------------------------
+    //Bestellposten
     public void addBestellposten(int bestellungId, int cookieId, int count) {
-        
-        //is there already an order with this cookietype?
+        //Is there already an order with this cookietype?
         Bestellposten bp = findBestellpostenByCookie(cookieId);
         if(bp == null) {
             bp = new Bestellposten();
@@ -75,7 +64,6 @@ public class BestellService implements Serializable{
     }
     
     public List<Bestellposten> allBestellposten(int bestellungId) {
-
         List<Bestellposten> erg = new ArrayList<Bestellposten>();
         Bestellung b = db.findBestellung(bestellungId);
         for (Bestellposten bp : b.getOrdered()) {
@@ -86,7 +74,6 @@ public class BestellService implements Serializable{
     }
     
     public List<Bestellposten> allBestellposten() {
-
         List<Bestellposten> erg = new ArrayList<Bestellposten>();
 
         for (Bestellposten bp : this.db.findAllBestellposten()) {
@@ -110,7 +97,6 @@ public class BestellService implements Serializable{
         }
         return bpp;
     }
-    
 
     public void deleteBestellposten(int id,Bestellposten bp) {
         this.db.removeBestellposten(id,bp);

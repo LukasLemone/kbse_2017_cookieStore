@@ -11,7 +11,7 @@ public class CookiePersistence {
     @Inject
     private EntityManager em;
     
-    //basic persistence-stuff
+    //Persistence Funktionen
     public void persist(Object object) {
         em.persist(object);
     }
@@ -32,35 +32,31 @@ public class CookiePersistence {
         em.refresh(object);
     }
     
-    //--------------cookie-stuff-------------------------------------
-    
+    //Cookie Funktionen
     public Cookie findCookie(int id) {
         return this.em.find(Cookie.class, id);
     }
     
     public List<Cookie> findAllCookies() {
-        //muss das alles so? findAllCookies wird drei mal aufgerufen
         System.out.println("Aufruf findAllCookies");
         return em.createNamedQuery("Cookie.findAll", Cookie.class).getResultList();
     }
     
-    public void removeCookie(int id) {
-        
+    public void removeCookie(int id) {       
         System.out.println("Aufruf removeCookie");
+        
         try {
-            
-            
             Cookie c = findCookie(id);
             merge(c);
             remove(c);
         } catch(Exception e) {
             System.out.println("Exception remove");
         }
-        
     }
     
     public void addCookie(Cookie c) {
         System.out.println("Aufruf addCookie");
+        
         try {
             this.persist(c);
         } catch(Exception e) {
@@ -68,8 +64,7 @@ public class CookiePersistence {
         }
     }
     
-    //--------------Bestellung-Stuff-------------------
-        
+    //Bestellung Funktionen
     public Bestellung findBestellung(int id) {
         return this.em.find(Bestellung.class, id);
     }
@@ -80,9 +75,9 @@ public class CookiePersistence {
     }
     
     public void removeBestellung(int id) {
-        
         Bestellung b = findBestellung(id);
         System.out.println("Aufruf remove Bestellung");
+        
         try {
             for(Bestellposten bp : b.getOrdered()) {
                 removeBestellposten(id, bp);
@@ -92,23 +87,22 @@ public class CookiePersistence {
         } catch(Exception e) {
             System.out.println("Exception remove Bestellung "+b.getId());
         }
-        
     }
     
     public void addBestellung(Bestellung b) {
         System.out.println("Aufruf addBestellung");
+        
         try {
-            
             this.persist(b);
         } catch(Exception e) {
             System.out.println("Exception persist Bestellung");
         }
     }
     
-    //--------------Bestellposten-Stuff-------------------
-    
+    //Bestellposten Funktionen
     public void addBestellposten(int id, Bestellposten bp) {
         Bestellung b = this.findBestellung(id);
+        
         try {
            b.addBestellposten(bp);
            bp.setBestellung(b);
@@ -128,7 +122,6 @@ public class CookiePersistence {
     }
     
     public void removeBestellposten(int id, Bestellposten bp) {
-        
         System.out.println("Aufruf remove Bestellposten");
         
         Bestellung b = this.findBestellung(id);

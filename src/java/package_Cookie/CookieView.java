@@ -4,7 +4,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.enterprise.context.SessionScoped;
@@ -22,7 +21,6 @@ public class CookieView implements Serializable {
     
     private Bestellung order;
     
-    
     @Inject
     private CookieService cs;
     
@@ -33,7 +31,6 @@ public class CookieView implements Serializable {
     public void init() {
         cs.deleteAllCookies();
         bs.deleteAllBestellungen();
-        
         
         cs.addCookie("Schoko", 1.99, 64);
         cs.addCookie("Halbkorn", 2.49, 64);
@@ -47,13 +44,6 @@ public class CookieView implements Serializable {
     }
 
     //Buttons in main.xhtml
-    
-    
-    /*
-    Note: habe ich auskommentiert, da hier neue Cookies erstellt werden, die auch neue Ids bekommen
-    -> man kann bestellung nicht mehr eindeutig über id referenzieren
-    */
-    
     public void orderCookieButton(int toOrderId) {
         if(cs.findCookie(toOrderId).getCount() < orderCount){
             addMessage("Vorrat reicht nicht aus");
@@ -89,7 +79,6 @@ public class CookieView implements Serializable {
         //TODO delete cookie from order
     }
     public void confirmOrderButton() {
-
         for(Bestellposten bp : bs.allBestellposten(order.getId())) {
             if(!cs.isThereCookie(bp.getCookieId())) {
                 addMessage("Cookie "+bp.getCookieId()+" existiert nicht mehr");
@@ -101,20 +90,20 @@ public class CookieView implements Serializable {
                     rewind();
                     break;
                 } else {
-                    //bestellposten ausführen
+                    //Bestellposten ausführen
                     addMessage("DEBUG: "+bp.getCount()+"|"+bp.getCookieId());
                     Cookie c = cs.findCookie(bp.getCookieId());
                     c.setCount(c.getCount() - bp.getCount());
                     cs.updateCookie(c);
                     
-                    //bestellstatus auf positiv
+                    //Bestellstatus auf positiv
                     bp.setStatus(true);
                     bs.updateBestellposten(bp);
                 }
             }
         }
         
-        //aufräumen
+        //Aufräumen
         addMessage("Bestellung erfolgreich");
         orderCount = 0;
         order = new Bestellung();
@@ -126,7 +115,7 @@ public class CookieView implements Serializable {
         for(Bestellposten bp : bs.allBestellposten(order.getId())) {
             if(bp.isStatus() == true) {
                 
-                //bearbeitete Posten wieder hochzählen
+                //Bearbeitete Posten wieder hochzählen
                 Cookie c = cs.findCookie(bp.getCookieId());
                 c.setCount(c.getCount() + bp.getCount());
                 cs.updateCookie(c);
@@ -136,11 +125,9 @@ public class CookieView implements Serializable {
                 bs.updateBestellposten(bp);
             }
         }
-
     }
     
-    //Functionality
-    
+    //Funktionalität
     public int getBestellungCount(int id) {
         Bestellposten bp = bs.findBestellpostenByCookie(id);
         return bp.getCount();
@@ -159,52 +146,42 @@ public class CookieView implements Serializable {
         return cs.ordered_cookies(order.getId());
     }
     
-    
     public void addMessage(String summary) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, summary,  null);
         FacesContext.getCurrentInstance().addMessage(null, message);
     }
     
+    //Getter & Setter
     public int getOrderCount() {
         return orderCount;
     } 
-
     public CookieService getCs() {
         return cs;
     } 
-     
      public String getToAddName() {
         return toAddName;
     }
-
     public double getToAddPrice() {
         return toAddPrice;
     }
-
     public int getToAddCount() {
         return toAddCount;
     }
-
     public int getIdToDelete() {
         return idToDelete;
     }
-
     public void setOrderCount(int orderCount) {
         this.orderCount = orderCount;
     }
-    
     public void setToAddName(String toAddName) {
         this.toAddName = toAddName;
     }
-
     public void setToAddPrice(double toAddPrice) {
         this.toAddPrice = toAddPrice;
     }
-
     public void setToAddCount(int toAddCount) {
         this.toAddCount = toAddCount;
     }
-
     public void setIdToDelete(int idToDelete) {
         this.idToDelete = idToDelete;
     }
