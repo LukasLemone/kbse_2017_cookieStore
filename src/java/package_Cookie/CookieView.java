@@ -58,6 +58,7 @@ public class CookieView implements Serializable {
     public void addCookieButton() {
         if(!toAddName.equals(null) && toAddPrice != 0 && toAddCount != 0){
             cs.addCookie(toAddName, toAddPrice, toAddCount);
+            toAddName= "";
             addMessage("Cookie hinzugefügt");
         }else{
             addMessage("Angaben unvollständig");
@@ -106,11 +107,16 @@ public class CookieView implements Serializable {
                     }
                 }
             }
-
+            
+            myOrder.setCustomer(toAddName);
+            os.updateOrder(myOrder);
+            toAddName = "";
+            
             //Aufräumen
             addMessage("Bestellung erfolgreich");
             orderCount = 0;
             myOrder = new MyOrder();
+            os.addOrder(myOrder);
             os.addOrder(myOrder);
                 
             return "final?faces-redirect=true";
@@ -131,7 +137,7 @@ public class CookieView implements Serializable {
     }
     
     //Wird nicht genutzt!
-    public double getSummedPrice(int id) {
+    public double getOrderItemPrice(int id) {
         OrderItem oi = os.findOrderItemByCookie(id, this.myOrder.getId());
         return  oi.getCount() * cs.findCookie(id).getPrice();
     }

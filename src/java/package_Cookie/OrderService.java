@@ -105,6 +105,10 @@ public class OrderService implements Serializable {
         this.db.merge(oi);
     }
     
+    public void updateOrder(MyOrder o) {
+        this.db.merge(o);
+    }
+    
     public double getOrderPrice(int id) {
         double result = 0;
         MyOrder o = db.findOrder(id);
