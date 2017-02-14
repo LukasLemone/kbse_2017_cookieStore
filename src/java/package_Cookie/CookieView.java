@@ -124,7 +124,6 @@ public class CookieView implements Serializable {
         return oi.getCount();
     }
     
-    //Wird nicht genutzt!
     public double getOrderPrice() {
         double temp = os.getOrderPrice(myOrder.getId());
         return Math.round(temp*100.0)/100.0;
