@@ -46,7 +46,7 @@
                                 <h:outputText value="#{item.price}" style="font-weight:bold" />
 
                                 <h:outputText value="Anzahl:" />
-                                <h:outputText value="#{CookieView.getBestellungCount(item.id)}" style="font-weight:bold" />
+                                <h:outputText value="#{CookieView.getOrderCount(item.id)}" style="font-weight:bold" />
                             </h:panelGrid>  
 
                             <p:commandButton value="Löschen" update="@form" action="#{CookieView.orderDeleteCookieButton(item.id)}" />
@@ -75,18 +75,18 @@
                                 Name
                             </f:facet>
                             <h:outputText value="Name: " />
-                            <p:inputText value="" />
+                            <p:inputText value="#{CookieView.toAddName}" />
                         </p:panel>
                         
                         <p:panel>
                             <f:facet name="header">
                                 Gesamtbetrag
                             </f:facet>
-                            <h:outputText value="16.50€" style="font-weight:bold; font-size:20px" />
+                            <h:outputText value="#{CookieView.getOrderPrice()}" style="font-weight:bold; font-size:20px" />
                         </p:panel>
                         <br/>
                         <br/>
-                        <p:commandButton value="Bestellung bestätigen" id="confirmOrderButton" update="@form" action="#{CookieView.confirmOrderButton()}" styleClass="ui-priority-primary" />
+                        <p:commandButton value="Bestellung bestätigen" id="confirmOrderButton" update="@form" action="#{CookieView.confirmOrderButton()}" />
                         <br/>
                         <br/>
                         <br/>

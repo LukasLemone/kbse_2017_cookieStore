@@ -21,18 +21,17 @@ import javax.validation.constraints.NotNull;
             query = "DELETE FROM Cookie o WHERE o.id = :id")
 })
 public class Cookie implements Serializable {
-    
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
     @NotNull(message="Keks braucht einen Namen")
     private String name;
     
-    @Min(value= 0, message="kein Preis angegeben")
+    @Min(value= 0, message="Keinen Preis angegeben")
     @Max(value= 100, message="Preis zu hoch")
     private double price;
     
-    @Min(value= 0, message="keine Anzahl angegeben")
+    @Min(value= 0, message="Keine Anzahl angegeben")
     @Max(value= 10000, message="Anzahl zu hoch")
     private int count;
 
@@ -45,7 +44,7 @@ public class Cookie implements Serializable {
         this.count = count;
     }
     
-    // Getter & Setter
+    // Getter & Setter ---------------------------------------------------------
     public int getId() {
         return id;
     } 
@@ -67,9 +66,11 @@ public class Cookie implements Serializable {
     public void setCount(int count) {
         this.count = count;
     }
+    //Wird nicht genutzt!
     public void decreaseCount(int count) {
         this.count -= count;
     }
+    //Wird nicht genutzt!
     public void increaseCount(int count) {
         this.count += count;
     }

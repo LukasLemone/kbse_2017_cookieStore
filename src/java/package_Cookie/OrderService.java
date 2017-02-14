@@ -8,55 +8,52 @@ import javax.inject.Inject;
 
 @Dependent
 public class OrderService implements Serializable {
-
     @Inject
     private CookiePersistence db;
 
-    //Bestellung
     public void addOrder() {
-        Order o = new Order();
-        this.db.addBestellung(o);
+        MyOrder o = new MyOrder();
+        this.db.addOrder(o);
     }
     
-    public void addOrder(Order o) {
-        this.db.addBestellung(o);
+    public void addOrder(MyOrder o) {
+        this.db.addOrder(o);
     }
 
-    public List<Order> everyOrder() {
-        List<Order> erg = new ArrayList<Order>();
-
-        for (Order o : this.db.findAllBestellungen()) {
-            erg.add(o);
+    public List<MyOrder> allOrders() {
+        List<MyOrder> result = new ArrayList<>();
+        for (MyOrder o : this.db.findAllOrders()) {
+            result.add(o);
         }
 
-        return erg;
+        return result;
     }
 
     public void deleteOrder(int id) {
-        this.db.removeBestellung(id);
+        this.db.removeOrder(id);
     }
     
-    public Order findOrder(int id) {
-        Order o = this.db.findBestellung(id);
+    public MyOrder findOrder(int id) {
+        MyOrder o = this.db.findOrder(id);
         return o;
     }
     
-    public void deleteEveryOrder() {
-        for(Order o : everyOrder()) {
+    public void deleteAllOrders() {
+        for(MyOrder o : allOrders()) {
             deleteOrder(o.getId());
         }
     }
     
-    //Bestellposten
+    //OrderItem ----------------------------------------------------------------
     public void addOrderItem(int orderId, int cookieId, int count) {
-        //Is there already an order with this cookietype?
+        //Ist da bereits eine Bestellung mit diesem Cookietyp?
         OrderItem oi = findOrderItemByCookie(cookieId, orderId);
         if(oi == null) {
             oi = new OrderItem();
             oi.setCount(count);
             oi.setCookieId(cookieId);
             oi.setStatus(false);
-            this.db.addBestellposten(orderId, oi);
+            this.db.addOrderItem(orderId, oi);
         } else {
             oi.setCount(count);
             updateOrderItem(oi);
@@ -64,47 +61,58 @@ public class OrderService implements Serializable {
     }
     
     public List<OrderItem> allOrderItems(int bestellungId) {
-        List<OrderItem> erg = new ArrayList<OrderItem>();
-        Order b = db.findBestellung(bestellungId);
+        List<OrderItem> result = new ArrayList<OrderItem>();
+        MyOrder b = db.findOrder(bestellungId);
         for (OrderItem bp : b.getOrdered()) {
-            erg.add(bp);
+            result.add(bp);
         }
 
-        return erg;
+        return result;
     }
     
     public List<OrderItem> allOrderItems() {
-        List<OrderItem> erg = new ArrayList<OrderItem>();
-
-        for (OrderItem oi : this.db.findAllBestellposten()) {
-            erg.add(oi);
+        List<OrderItem> result = new ArrayList<OrderItem>();
+        for (OrderItem oi : this.db.findAllOrderItems()) {
+            result.add(oi);
         }
 
-        return erg;
+        return result;
     }
     
     public OrderItem findOrderItem(int id) {
-        OrderItem oi = this.db.findBestellposten(id);
+        OrderItem oi = this.db.findOrderItem(id);
         return oi;
     }
     
     public OrderItem findOrderItemByCookie(int cid, int oid) {
-        OrderItem _oi = null;
-        Order o = this.db.findBestellung(oid);
+        OrderItem oii = null;
+        MyOrder o = this.db.findOrder(oid);
         for(OrderItem oi : o.getOrdered()) {
             if(oi.getCookieId() == cid) {
-                _oi = oi;
+                oii = oi;
             }
         }
-        return _oi;
+        
+        return oii;
     }
     
 
-    public void deleteOrderItem(int id,OrderItem oi) {
-        this.db.removeBestellposten(id,oi);
+    public void deleteOrderItem(int id, OrderItem oi) {
+        this.db.removeOrderItem(id, oi);
     }
 
     public void updateOrderItem(OrderItem oi) {
         this.db.merge(oi);
+    }
+    
+    public double getOrderPrice(int id) {
+        double result = 0;
+        MyOrder o = db.findOrder(id);
+        for(OrderItem oi : o.getOrdered()) {
+            Cookie c = db.findCookie(oi.getCookieId());
+            result += (c.getPrice() * oi.getCount());
+        }
+        
+        return result;
     }
 }

@@ -8,25 +8,24 @@ import javax.inject.Inject;
 
 @Dependent
 public class CookieService implements Serializable {
-    
     @Inject
     private CookiePersistence db;
     
     public List<Cookie> cookies() {
-        List <Cookie> erg = new ArrayList<Cookie>();
+        List <Cookie> result = new ArrayList<Cookie>();
         for(Cookie c : this.db.findAllCookies()) {
-            erg.add(c);
+            result.add(c);
         }
-        return erg;
+        return result;
     }
     
-    public List<Cookie> ordered_cookies(int bestellung) {
-        List <Cookie> erg = new ArrayList<Cookie>();
-        Order b = db.findBestellung(bestellung);
-        for(OrderItem bp : b.getOrdered()) {
-            erg.add(db.findCookie(bp.getCookieId()));
+    public List<Cookie> orderedCookies(int order) {
+        List <Cookie> result = new ArrayList<Cookie>();
+        MyOrder o = db.findOrder(order);
+        for(OrderItem oi : o.getOrdered()) {
+            result.add(db.findCookie(oi.getCookieId()));
         }
-        return erg;
+        return result;
     }
     
     public void addCookie(String name, double price, int count) {
@@ -41,15 +40,15 @@ public class CookieService implements Serializable {
         this.db.removeCookie(id);
     } 
     
-    public boolean isThereCookie(int id){
-        if(this.db.findCookie(id) != null){ // TODO: test if findCookie can return null
+    public boolean isThereCookie(int id){ //TODO: test if findCookie can return null
+        if(this.db.findCookie(id) != null){
             return true;
         }else{
             return false;
         }
     }
-    
-    public boolean isThereName(String name) { // TODO: is there an unique anntoation
+    //Wird nicht genutzt!
+    public boolean isThereName(String name) { //TODO: is there an unique anntoation
         for(Cookie c : this.db.findAllCookies()) {
             if(c.getName().equals(name)) {
                 return true;
