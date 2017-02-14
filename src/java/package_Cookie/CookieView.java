@@ -75,40 +75,46 @@ public class CookieView implements Serializable {
     
     //Buttons in order.xhtml ---------------------------------------------------
     public void orderDeleteCookieButton(int toDeleteId) {
-        //TODO delete Order
+        //os.deleteOrderItem(toDeleteId, oi);
+        //addMessage("Von Bestellung gelöscht");
     }
     public String confirmOrderButton() {
-        for(OrderItem oi : os.allOrderItems(myOrder.getId())) {
-            if(!cs.isThereCookie(oi.getCookieId())) {
-                addMessage("Cookie "+oi.getCookieId()+" existiert nicht mehr");
-                rewind();
-                break;
-            } else {
-                if(!(oi.getCount() <= cs.findCookie(oi.getCookieId()).getCount())) {
-                    addMessage("Cookie "+oi.getCookieId()+" existiert nicht mehr in der Stückzahl");
+        if(getOrderPrice() == 0){
+            addMessage("Bestellung ist leer");
+            return null;
+        }else{
+            for(OrderItem oi : os.allOrderItems(myOrder.getId())) {
+                if(!cs.isThereCookie(oi.getCookieId())) {
+                    addMessage("Cookie "+oi.getCookieId()+" existiert nicht mehr");
                     rewind();
                     break;
                 } else {
-                    //Bestellposten ausführen
-                    addMessage("DEBUG: "+oi.getCount()+"|"+oi.getCookieId());
-                    Cookie c = cs.findCookie(oi.getCookieId());
-                    c.setCount(c.getCount() - oi.getCount());
-                    cs.updateCookie(c);
-                    
-                    //Bestellstatus auf positiv
-                    oi.setStatus(true);
-                    os.updateOrderItem(oi);
+                    if(!(oi.getCount() <= cs.findCookie(oi.getCookieId()).getCount())) {
+                        addMessage("Cookie "+oi.getCookieId()+" existiert nicht mehr in der Stückzahl");
+                        rewind();
+                        break;
+                    } else {
+                        //Bestellposten ausführen
+                        addMessage("DEBUG: "+oi.getCount()+"|"+oi.getCookieId());
+                        Cookie c = cs.findCookie(oi.getCookieId());
+                        c.setCount(c.getCount() - oi.getCount());
+                        cs.updateCookie(c);
+
+                        //Bestellstatus auf positiv
+                        oi.setStatus(true);
+                        os.updateOrderItem(oi);
+                    }
                 }
             }
-        }
-        
-        //Aufräumen
-        addMessage("Bestellung erfolgreich");
-        orderCount = 0;
-        myOrder = new MyOrder();
-        os.addOrder(myOrder);
+
+            //Aufräumen
+            addMessage("Bestellung erfolgreich");
+            orderCount = 0;
+            myOrder = new MyOrder();
+            os.addOrder(myOrder);
                 
-        return "final?faces-redirect=true";
+            return "final?faces-redirect=true";
+        }
     }
     
     //Funktionalität -----------------------------------------------------------
@@ -120,7 +126,8 @@ public class CookieView implements Serializable {
     
     //Wird nicht genutzt!
     public double getOrderPrice() {
-        return os.getOrderPrice(myOrder.getId());
+        double temp = os.getOrderPrice(myOrder.getId());
+        return Math.round(temp*100.0)/100.0;
     }
     
     //Wird nicht genutzt!
