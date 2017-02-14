@@ -13,32 +13,31 @@ import javax.validation.Valid;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Bestellposten.findAll",
-            query = "SELECT o FROM Bestellposten o"),
-    @NamedQuery(name = "Bestellposten.find",
-            query = "SELECT o FROM Bestellposten o WHERE o.id = :id"),
-    @NamedQuery(name = "Bestellposten.remove",
-            query = "DELETE FROM Bestellposten o WHERE o.id = :id")
+    @NamedQuery(name = "OrderItem.findAll",
+            query = "SELECT o FROM OrderItem o"),
+    @NamedQuery(name = "OrderItem.find",
+            query = "SELECT o FROM OrderItem o WHERE o.id = :id"),
+    @NamedQuery(name = "OrderItem.remove",
+            query = "DELETE FROM OrderItem o WHERE o.id = :id")
 })
 class OrderItem implements Serializable {
-    
     @Id @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
     @ManyToOne(cascade = CascadeType.PERSIST)
     @Valid
-    private Order order;
+    private MyOrder myOrder;
     
     private int cookieId;
     private int count;
     private boolean status;
 
-    public Order getOrder() {
-        return order;
+    public MyOrder getMyOrder() {
+        return myOrder;
     }
 
-    public void setOrder(Order order) {
-        this.order = order;
+    public void setMyOrder(MyOrder myOrder) {
+        this.myOrder = myOrder;
     }
 
     public void setStatus(boolean status) {
