@@ -35,7 +35,7 @@
                         <h:panelGrid columns="3" style="width:100%" columnClasses="image,detail,button">
                             <p:graphicImage width="100" height="100" value="resources/cookie_types/#{item.name}.jpg" alt="Kein Bild" />
                             
-                            <h:panelGrid columns="2" cellpadding="5">
+                            <h:panelGrid columns="2" cellpadding="5" id="orderDelete">
                                 <h:outputText value="Id:" />
                                 <h:outputText value="#{item.id}" style="font-weight:bold" />
 
@@ -49,7 +49,7 @@
                                 <h:outputText value="#{CookieView.getOrderCount(item.id)}" style="font-weight:bold" />
                             </h:panelGrid>  
 
-                            <p:commandButton value="Löschen" update="@form" action="#{CookieView.orderDeleteCookieButton(item.id)}" />
+                            <p:commandButton value="Löschen" process="@this orderDelete" update="@form" action="#{CookieView.orderDeleteCookieButton(item.id)}" />
                         </h:panelGrid>
                         
                         <p:separator />
@@ -69,7 +69,7 @@
                     <p:separator />  
 
                     <div align="center">
-                        <p:panel>
+                        <p:panel id="toFinal">
                             <f:facet name="header">
                                 Name des Auftraggebers
                             </f:facet>
@@ -86,7 +86,7 @@
                         
                         <br/>
                         <br/>
-                        <p:commandButton value="Bestellung bestätigen" process="@this" update="@form" action="#{CookieView.confirmOrderButton()}" />
+                        <p:commandButton value="Bestellung bestätigen" process="@this toFinal" update="@form" action="#{CookieView.confirmOrderButton()}" />
                         <br/>
                         <br/>
                         <br/>

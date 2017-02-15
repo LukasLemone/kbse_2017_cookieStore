@@ -13,6 +13,7 @@ import javax.inject.Named;
 @SessionScoped
 public class CookieView implements Serializable {
     private String toAddName;
+    private String customer;
     private double toAddPrice;
     private int toAddCount;
     private int idToDelete;
@@ -56,7 +57,7 @@ public class CookieView implements Serializable {
     }
     
     public void addCookieButton() {
-        if(!toAddName.equals(null) && toAddPrice != 0 && toAddCount != 0){
+        if(!toAddName.equals("") && toAddPrice != 0 && toAddCount != 0){
             cs.addCookie(toAddName, toAddPrice, toAddCount);
             toAddName= "";
             addMessage("Cookie hinzugefügt");
@@ -76,47 +77,52 @@ public class CookieView implements Serializable {
     
     //Buttons in order.xhtml ---------------------------------------------------
     public void orderDeleteCookieButton(int toDeleteId) {
-        //os.deleteOrderItem(toDeleteId, oi);
-        //addMessage("Von Bestellung gelöscht");
+        addMessage("inDCB "+toDeleteId);
+        OrderItem oi = os.findOrderItemByCookie(toDeleteId, myOrder.getId());
+        os.deleteOrderItem(myOrder.getId(), oi);
     }
     public String confirmOrderButton() {
         if(getOrderPrice() == 0){
             addMessage("Bestellung ist leer");
             return null;
         }else{
-            for(OrderItem oi : os.allOrderItems(myOrder.getId())) {
-                if(!cs.isThereCookie(oi.getCookieId())) {
-                    addMessage("Cookie "+oi.getCookieId()+" existiert nicht mehr");
-                    rewind();
-                    break;
-                } else {
-                    if(!(oi.getCount() <= cs.findCookie(oi.getCookieId()).getCount())) {
-                        addMessage("Cookie "+oi.getCookieId()+" existiert nicht mehr in der Stückzahl");
+            if(this.toAddName.equals("")) {
+                addMessage("Keinen Namen angegeben");
+                return null;
+            } else {
+                for(OrderItem oi : os.allOrderItems(myOrder.getId())) {
+                    if(!cs.isThereCookie(oi.getCookieId())) {
+                        addMessage("Cookie "+oi.getCookieId()+" existiert nicht mehr");
                         rewind();
                         break;
                     } else {
-                        //Bestellposten ausführen
-                        addMessage("DEBUG: "+oi.getCount()+"|"+oi.getCookieId());
-                        Cookie c = cs.findCookie(oi.getCookieId());
-                        c.setCount(c.getCount() - oi.getCount());
-                        cs.updateCookie(c);
+                        if(!(oi.getCount() <= cs.findCookie(oi.getCookieId()).getCount())) {
+                            addMessage("Cookie "+oi.getCookieId()+" existiert nicht mehr in der Stückzahl");
+                            rewind();
+                            break;
+                        } else {
+                            //Bestellposten ausführen
+                            addMessage("DEBUG: "+oi.getCount()+"|"+oi.getCookieId());
+                            Cookie c = cs.findCookie(oi.getCookieId());
+                            c.setCount(c.getCount() - oi.getCount());
+                            cs.updateCookie(c);
 
-                        //Bestellstatus auf positiv
-                        oi.setStatus(true);
-                        os.updateOrderItem(oi);
+                            //Bestellstatus auf positiv
+                            oi.setStatus(true);
+                            os.updateOrderItem(oi);
+                        }
                     }
-                }
-            }
+                }   
+            }    
             
             myOrder.setCustomer(toAddName);
             os.updateOrder(myOrder);
-            toAddName = "";
             
             //Aufräumen
             addMessage("Bestellung erfolgreich");
             orderCount = 0;
+            toAddName="";
             myOrder = new MyOrder();
-            os.addOrder(myOrder);
             os.addOrder(myOrder);
                 
             return "final?faces-redirect=true";
@@ -189,6 +195,12 @@ public class CookieView implements Serializable {
     }
     public int getIdToDelete() {
         return idToDelete;
+    }
+    public String getCustomer() {
+        return customer;
+    }
+    public void setCustomer(String customer) {
+        this.customer = customer;
     }
     public void setOrderCount(int orderCount) {
         this.orderCount = orderCount;

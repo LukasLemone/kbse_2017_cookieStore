@@ -124,11 +124,15 @@ public class CookiePersistence {
         
         MyOrder o = this.findOrder(id);
         try {
-            this.merge(oi);
-            remove(oi);
+            
+            
+            OrderItem toBeRemoved = em.merge(oi);
+            em.remove(toBeRemoved);
+            
             System.out.println("erfolg remove OrderItem "+oi.getId());
         } catch(Exception e) {
             System.out.println("Exception remomve OrderItem "+oi.getId());
+            e.printStackTrace();
         }
     }
 }
