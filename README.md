@@ -1,4 +1,4 @@
-# KBSE_2017_CookieStore
+# CS_2017_CookieStore
 A JSF web app for an online cookie store.
 
 <p>
